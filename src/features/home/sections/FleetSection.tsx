@@ -77,7 +77,7 @@ export default function FleetSection() {
       {/* Header */}
       <div className="reveal flex items-end justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight text-[#132238]">
+          <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
             Explore Our Fleet
           </h2>
           <p className="mt-1.5 text-zinc-500">
@@ -106,7 +106,7 @@ export default function FleetSection() {
         {cars.map((car) => (
           <div
             key={car.name}
-            className="reveal flex flex-col rounded-3xl border border-zinc-100 bg-white p-5 shadow-sm transition-shadow hover:shadow-lg"
+            className="reveal flex flex-col rounded-3xl border border-zinc-100 bg-white p-5 shadow-premium"
           >
             <h3 className="text-center text-xl font-bold text-[#132238]">
               {car.name}
@@ -129,7 +129,7 @@ export default function FleetSection() {
 
             <div className="mt-6 border-t border-zinc-100 pt-6 text-center">
               <span className="text-base font-medium text-primary">From </span>
-              <span className="text-3xl font-bold text-primary">${car.price}</span>
+              <span className="text-3xl font-bold text-primary">₹{car.price}</span>
               <span className="text-base font-medium text-primary">/day</span>
             </div>
           </div>

@@ -39,7 +39,7 @@ export default function HowItWorks() {
     <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
       {/* Header */}
       <div className="reveal text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-[#132238]">
+        <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
           How It Works
         </h2>
         <p className="mt-2 text-zinc-500">

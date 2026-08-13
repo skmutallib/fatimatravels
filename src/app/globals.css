@@ -54,3 +54,10 @@ body {
 .animate-marquee {
   animation: marquee 45s linear infinite;
 }
+
+/* Premium realistic card shadow */
+.shadow-premium {
+  box-shadow:
+    0 22px 48px -18px rgba(0, 0, 0, 0.3),
+    0 8px 18px -10px rgba(0, 0, 0, 0.18);
+}

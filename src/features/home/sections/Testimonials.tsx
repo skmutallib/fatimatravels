@@ -47,7 +47,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <article className="relative mr-6 flex w-[340px] shrink-0 flex-col rounded-2xl bg-primary p-6 text-white shadow-md sm:w-[380px]">
+    <article className="relative mr-6 flex w-[340px] shrink-0 flex-col rounded-2xl bg-primary p-6 text-white shadow-premium sm:w-[380px]">
       {/* Quote icon */}
       <Quote className="absolute right-6 top-6 h-8 w-8 fill-white/15 text-white/15" />
 
@@ -88,7 +88,7 @@ export default function Testimonials() {
     <section className="w-full py-16">
       {/* Header */}
       <div className="reveal mx-auto w-[90vw] px-6 text-center sm:px-10 lg:px-16">
-        <h2 className="text-3xl font-bold tracking-tight text-[#132238]">
+        <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
           What Our Customers Say
         </h2>
         <p className="mt-2 text-zinc-500">Real people. Real experiences.</p>

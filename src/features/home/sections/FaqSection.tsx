@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { HelpCircle, Minus, MessageCircle, Plus } from "lucide-react";
+import { HelpCircle, Minus, Plus } from "lucide-react";
 
 type Faq = { q: string; a: string };
 
@@ -40,12 +39,12 @@ export default function FaqSection() {
           <HelpCircle className="h-3.5 w-3.5" />
           FAQ&apos;s
         </span>
-        <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#132238] sm:text-4xl">
+        <h2 className="mt-4 text-4xl font-bold tracking-tight text-[#132238] sm:text-5xl">
           Frequently Asked Questions
         </h2>
       </div>
 
-      <div className="reveal mt-12 grid items-start gap-8 lg:grid-cols-[1.7fr_1fr]">
+      <div className="reveal mx-auto mt-12 max-w-3xl">
         {/* Accordion */}
         <div className="space-y-4">
           {faqs.map((faq, i) => {
@@ -54,7 +53,7 @@ export default function FaqSection() {
               <div
                 key={faq.q}
                 className={`overflow-hidden rounded-2xl transition-colors ${
-                  isOpen ? "bg-[#132238] text-white" : "bg-zinc-100"
+                  isOpen ? "bg-primary text-white" : "bg-zinc-100"
                 }`}
               >
                 <button
@@ -98,24 +97,6 @@ export default function FaqSection() {
               </div>
             );
           })}
-        </div>
-
-        {/* Still have questions */}
-        <div className="rounded-2xl bg-zinc-100 p-7">
-          <h3 className="text-xl font-bold text-[#132238]">
-            Still Have Questions?
-          </h3>
-          <p className="mt-3 leading-relaxed text-zinc-500">
-            Got something on your mind? Visit our Help Center for quick answers or
-            chat with our support team live to get personalized assistance.
-          </p>
-          <Link
-            href="/contact"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold uppercase tracking-wide text-[#132238] shadow-sm transition-colors hover:bg-primary hover:text-white"
-          >
-            <MessageCircle className="h-4 w-4" />
-            Contact Us
-          </Link>
         </div>
       </div>
     </section>

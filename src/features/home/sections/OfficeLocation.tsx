@@ -18,7 +18,7 @@ export default function OfficeLocation() {
     <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
       {/* Header */}
       <div className="reveal text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-[#132238]">
+        <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
           Visit Our Office
         </h2>
         <p className="mt-2 text-zinc-500">
@@ -27,7 +27,7 @@ export default function OfficeLocation() {
       </div>
 
       {/* Map + overlay cards */}
-      <div className="reveal relative mt-12 overflow-hidden rounded-3xl shadow-lg">
+      <div className="reveal relative mt-12 overflow-hidden rounded-3xl shadow-premium">
         {/* Live map background */}
         <iframe
           title="Fatima Tours and Travels location"
@@ -41,7 +41,7 @@ export default function OfficeLocation() {
         <div className="relative z-10 flex min-h-[440px] flex-col justify-end gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:p-8">
           {/* Left: phone + hours */}
           <div className="flex flex-col gap-4 sm:w-[300px]">
-            <div className="flex items-center gap-4 rounded-2xl bg-primary p-4 text-white shadow-lg">
+            <div className="flex items-center gap-4 rounded-2xl bg-primary p-4 text-white shadow-premium">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/15 text-white">
                 <Phone className="h-5 w-5" />
               </span>
@@ -51,7 +51,7 @@ export default function OfficeLocation() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 rounded-2xl bg-primary p-4 text-white shadow-lg">
+            <div className="flex items-center gap-4 rounded-2xl bg-primary p-4 text-white shadow-premium">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/15 text-white">
                 <Clock className="h-5 w-5" />
               </span>
@@ -65,7 +65,7 @@ export default function OfficeLocation() {
           </div>
 
           {/* Right: address (dark card) */}
-          <div className="rounded-2xl bg-[#1b2635] p-6 text-white shadow-xl sm:max-w-md sm:flex-1">
+          <div className="rounded-2xl bg-[#1b2635] p-6 text-white shadow-premium sm:max-w-md sm:flex-1">
             <div className="flex items-start gap-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-primary">
                 <MapPin className="h-5 w-5" />

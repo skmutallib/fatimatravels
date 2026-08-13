@@ -60,7 +60,7 @@ export default function CtaContact() {
               <CtaCar />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white sm:text-3xl">
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
                 Ready to Hit the Road?
               </h2>
               <p className="mt-3 leading-relaxed text-white/90">
@@ -70,7 +70,7 @@ export default function CtaContact() {
           </div>
 
           {/* Right: form card */}
-          <div className="m-3 rounded-2xl bg-white p-6 shadow-xl sm:m-5 sm:p-7 lg:my-6 lg:mr-6">
+          <div className="m-3 rounded-2xl bg-white p-6 shadow-premium sm:m-5 sm:p-7 lg:my-6 lg:mr-6">
             <form className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Field label="Full Name" placeholder="Your name" />
               <Field

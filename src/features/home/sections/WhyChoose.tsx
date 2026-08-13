@@ -19,22 +19,22 @@ type Pkg = {
 
 const packages: Pkg[] = [
   {
-    name: "Weekend Escape",
-    detail: "2 Days / 200 km",
+    name: "Corporate Travel",
+    detail: "B2B",
     price: 79,
-    desc: "Perfect for short trips and getaways.",
+    desc: "Monthly billing, dedicated cars, executive chauffeurs.",
   },
   {
-    name: "Weekly Saver",
-    detail: "7 Days / 700 km",
+    name: "Wedding Car Rental",
+    detail: "Signature",
     price: 199,
-    desc: "Ideal for business or longer stays.",
+    desc: "Decorated luxury sedans, SUVs & convertibles.",
   },
   {
-    name: "Monthly Value",
-    detail: "30 Days / 2500 km",
+    name: "Railway Station Pick & Drop",
+    detail: "Hyderabad",
     price: 599,
-    desc: "Best value for extended city travel.",
+    desc: "Secunderabad · Nampally · Kacheguda — on the dot.",
   },
 ];
 
@@ -62,7 +62,7 @@ export default function WhyChoose() {
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
         {/* LEFT — Why choose */}
         <div className="reveal">
-          <h2 className="text-3xl font-bold tracking-tight text-[#132238]">
+          <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
             Why Choose Fatima Travels?
           </h2>
 
@@ -94,7 +94,7 @@ export default function WhyChoose() {
         <div className="reveal">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight text-[#132238]">
+              <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
                 Popular Rental Packages
               </h2>
               <p className="mt-1.5 text-zinc-500">
@@ -110,28 +110,28 @@ export default function WhyChoose() {
             </Link>
           </div>
 
-          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
             {packages.map((pkg) => (
               <div
                 key={pkg.name}
-                className="flex flex-col rounded-2xl border border-zinc-100 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+                className="flex flex-col rounded-3xl border border-zinc-100 bg-white p-7 shadow-premium"
               >
-                <h3 className="font-bold text-[#132238]">{pkg.name}</h3>
-                <p className="mt-1 text-sm text-zinc-500">{pkg.detail}</p>
+                <h3 className="text-lg font-bold text-[#132238]">{pkg.name}</h3>
+                <p className="mt-1.5 text-base text-zinc-500">{pkg.detail}</p>
 
-                <div className="my-4 flex items-end justify-between gap-2">
-                  <div className="h-16 w-24">
+                <div className="my-7 flex items-end justify-between gap-2">
+                  <div className="h-20 w-32">
                     <PackageCar />
                   </div>
                   <div className="text-right leading-none">
-                    <div className="text-2xl font-bold text-[#f2704f]">
-                      ${pkg.price}
+                    <div className="text-3xl font-bold text-primary">
+                      ₹{pkg.price}
                     </div>
-                    <div className="mt-1 text-xs text-zinc-400">Total</div>
+                    <div className="mt-1.5 text-sm text-zinc-400">Total</div>
                   </div>
                 </div>
 
-                <p className="mt-auto text-sm leading-relaxed text-zinc-500">
+                <p className="mt-auto text-base leading-relaxed text-zinc-500">
                   {pkg.desc}
                 </p>
               </div>

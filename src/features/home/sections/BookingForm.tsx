@@ -119,7 +119,7 @@ export default function BookingForm() {
 
   return (
     <section className="relative z-20 -mt-20 px-6 pb-16 sm:-mt-29">
-      <div className="mx-auto max-w-7xl rounded-2xl border border-zinc-100 bg-white p-5 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.25)] sm:p-7">
+      <div className="mx-auto max-w-7xl rounded-2xl border border-zinc-100 bg-white p-5 shadow-premium sm:p-7">
         {/* Tabs */}
         <div className="flex flex-wrap items-center gap-x-8 gap-y-2 border-b border-zinc-100 pb-1">
           {tabs.map((tab) => {
