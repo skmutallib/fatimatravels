@@ -59,31 +59,31 @@ function PackageCar() {
 export default function WhyChoose() {
   return (
     <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
-      <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
+      <div className="grid gap-12 lg:grid-cols-[1fr_1.25fr] lg:gap-12">
         {/* LEFT — Why choose */}
         <div className="reveal">
           <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
             Why Choose Fatima Travels?
           </h2>
 
-          <div className="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:gap-6">
-            <ul className="w-full space-y-4 sm:w-auto">
+          <div className="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:gap-8">
+            <ul className="w-full space-y-5 sm:w-auto">
               {reasons.map((reason) => (
-                <li key={reason} className="flex items-center gap-3">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                <li key={reason} className="flex items-center gap-3.5">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-white">
                     <Check className="h-4 w-4" strokeWidth={3} />
                   </span>
-                  <span className="text-[15px] text-zinc-700">{reason}</span>
+                  <span className="text-base text-zinc-700">{reason}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="relative aspect-square w-full max-w-[320px] shrink-0">
+            <div className="relative aspect-square w-full max-w-[360px] shrink-0">
               <Image
                 src="/why-choose-city.png"
                 alt="City skyline with greenery"
                 fill
-                sizes="320px"
+                sizes="360px"
                 className="object-contain"
               />
             </div>

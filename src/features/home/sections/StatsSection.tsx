@@ -16,7 +16,7 @@ type Stat = {
 const stats: Stat[] = [
   { target: 4.9, decimals: 1, suffix: "/5", label: "Google Rating" },
   { target: 55, decimals: 0, suffix: "+", label: "Verified Reviews" },
-  { target: 359, decimals: 0, suffix: "+", label: "Trips Completed" },
+  { target: 3059, decimals: 0, suffix: "+", label: "Trips Completed" },
   { target: 24, decimals: 0, suffix: "/7", label: "Always Available" },
 ];
 

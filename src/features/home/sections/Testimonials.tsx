@@ -95,7 +95,7 @@ export default function Testimonials() {
       </div>
 
       {/* Marquee */}
-      <div className="group reveal relative mt-12 overflow-hidden">
+      <div className="group reveal relative mt-12 overflow-x-clip py-4">
         {/* edge fades */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-28" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-28" />

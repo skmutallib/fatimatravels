@@ -84,7 +84,7 @@ export default function CtaContact() {
               <div className="sm:col-span-2 sm:flex sm:justify-end">
                 <button
                   type="button"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#f2704f] px-6 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#e05e3f] sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#0a9fa0] sm:w-auto"
                 >
                   Send Message
                   <Send className="h-4 w-4" />
