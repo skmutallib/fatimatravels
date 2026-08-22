@@ -28,8 +28,8 @@ const steps: Step[] = [
   },
   {
     num: "4",
-    title: "Pick Up & Drive",
-    desc: "Pick up your car and enjoy your journey!",
+    title: "Drive Comes to Your Location",
+    desc: "We bring the car to you — just drive and enjoy your journey!",
     icon: KeyRound,
   },
 ];

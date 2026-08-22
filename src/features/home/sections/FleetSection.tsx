@@ -4,17 +4,16 @@ type Car = {
   name: string;
   seats: string;
   transmission: string;
-  price: number;
   color: string;
   roof: string;
 };
 
 const cars: Car[] = [
-  { name: "Economy", seats: "4 Seats", transmission: "Manual", price: 29, color: "#4fc3c4", roof: "#8fd8d9" },
-  { name: "Compact", seats: "5 Seats", transmission: "Manual", price: 39, color: "#f97316", roof: "#fb9a52" },
-  { name: "SUV", seats: "5 Seats", transmission: "Automatic", price: 59, color: "#cbd5e1", roof: "#e2e8f0" },
-  { name: "Luxury", seats: "5 Seats", transmission: "Automatic", price: 89, color: "#1f2937", roof: "#374151" },
-  { name: "Electric", seats: "5 Seats", transmission: "Automatic", price: 49, color: "#e5e7eb", roof: "#f3f4f6" },
+  { name: "Economy", seats: "4 Seats", transmission: "Manual", color: "#4fc3c4", roof: "#8fd8d9" },
+  { name: "Compact", seats: "5 Seats", transmission: "Manual", color: "#f97316", roof: "#fb9a52" },
+  { name: "SUV", seats: "5 Seats", transmission: "Automatic", color: "#cbd5e1", roof: "#e2e8f0" },
+  { name: "Luxury", seats: "5 Seats", transmission: "Automatic", color: "#1f2937", roof: "#374151" },
+  { name: "Electric", seats: "5 Seats", transmission: "Automatic", color: "#e5e7eb", roof: "#f3f4f6" },
 ];
 
 function CarIllustration({ color, roof }: { color: string; roof: string }) {
@@ -75,64 +74,70 @@ export default function FleetSection() {
   return (
     <section className="w-[90vw] mx-auto px-6 py-16 sm:px-10 lg:px-16">
       {/* Header */}
-      <div className="reveal flex items-end justify-between gap-4">
-        <div>
-          <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
-            Explore Our Fleet
-          </h2>
-          <p className="mt-1.5 text-zinc-500">
-            Choose the perfect car for your city adventure.
-          </p>
+      <div className="reveal max-w-2xl">
+        <div className="flex items-center gap-3">
+          <span className="h-px w-8 bg-primary" />
+          <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+            Our Fleet
+          </span>
         </div>
-        <Link
-          href="/cars"
-          className="group flex shrink-0 items-center gap-1.5 text-[15px] font-semibold text-primary"
-        >
-          View All Cars
-          <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4 transition-transform group-hover:translate-x-1">
-            <path
-              d="M5 12h14M13 6l6 6-6 6"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Link>
+        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#132238] sm:text-4xl">
+          Explore Our Fleet
+        </h2>
+        <p className="mt-2 text-zinc-500">
+          Choose the perfect car for your city adventure.
+        </p>
       </div>
 
       {/* Cards */}
-      <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
         {cars.map((car) => (
-          <div
+          <Link
             key={car.name}
-            className="reveal flex flex-col rounded-3xl border border-zinc-100 bg-white p-5 shadow-premium"
+            href="/cars"
+            className="reveal group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-5 shadow-premium transition-all duration-500 hover:-translate-y-2 hover:border-primary/30"
           >
+            <span className="absolute inset-x-0 top-0 h-0.75 origin-left scale-x-0 bg-linear-to-r from-transparent via-primary to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+
             <h3 className="text-center text-xl font-bold text-[#132238]">
               {car.name}
             </h3>
 
-            <div className="my-8 flex h-30 items-center justify-center px-2">
-              <CarIllustration color={car.color} roof={car.roof} />
+            <div className="relative my-5 flex h-24 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-b from-zinc-50 to-zinc-100/60 px-2">
+              <span className="pointer-events-none absolute h-28 w-28 rounded-full bg-primary/15 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="relative flex h-full w-full items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
+                <CarIllustration color={car.color} roof={car.roof} />
+              </div>
             </div>
 
-            <div className="flex items-center justify-center gap-6 text-base text-zinc-500">
-              <span className="flex items-center gap-2">
+            <div className="flex items-center justify-center gap-5 text-sm text-zinc-500">
+              <span className="flex items-center gap-1.5 whitespace-nowrap">
                 <SeatIcon />
                 {car.seats}
               </span>
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 whitespace-nowrap">
                 <GearIcon />
                 {car.transmission}
               </span>
             </div>
 
-            <div className="mt-6 border-t border-zinc-100 pt-6 text-center">
-              <span className="text-base font-medium text-primary">From </span>
-              <span className="text-3xl font-bold text-primary">₹{car.price}</span>
-              <span className="text-base font-medium text-primary">/day</span>
-            </div>
-          </div>
+            <span className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(11,180,181,0.9)] transition-colors group-hover:bg-[#0a9fa0]">
+              View
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <path
+                  d="M5 12h14M13 6l6 6-6 6"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+          </Link>
         ))}
       </div>
     </section>

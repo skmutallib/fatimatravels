@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -14,6 +15,15 @@ export default function SmoothScroll({
 }) {
   const wrapper = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  // On route change, jump to the top and recalc triggers for the new page
+  useLayoutEffect(() => {
+    const smoother = ScrollSmoother.get();
+    if (smoother) smoother.scrollTop(0);
+    else window.scrollTo(0, 0);
+    ScrollTrigger.refresh();
+  }, [pathname]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {

@@ -54,9 +54,9 @@ export default function Hero() {
         sizes="100vw"
         className="-z-20 object-cover object-right"
       />
-      <div className="flex h-full w-full items-center px-6 sm:px-10 lg:pl-32 xl:pl-38">
+      <div className="flex h-full w-full items-center px-6 sm:px-30">
         <div className="max-w-2xl">
-          <h1 className="text-6xl font-extrabold leading-[1.05] tracking-tight text-[#132238] sm:text-7xl lg:text-6xl">
+          <h1 className="text-6xl font-extrabold leading-[1.05] tracking-tight text-[#132238]">
             Move Around
             <br />
             Your City,
@@ -64,7 +64,7 @@ export default function Hero() {
             <span className="text-primary">Your Way.</span>
           </h1>
 
-          <p className="mt-8 text-2xl leading-relaxed text-zinc-600 sm:text-3xl">
+          <p className="mt-8 text-xs leading-relaxed text-zinc-600 sm:text-lg">
             Flexible car rentals for every journey.
             <br />
             Daily, weekly, or monthly &ndash; you choose.
@@ -73,12 +73,12 @@ export default function Hero() {
           <ul className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
             {features.map((feature) => (
               <li key={feature.subtitle} className="flex items-center gap-2.5">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-primary/40 text-primary">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/40 text-primary">
                   <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
                     {feature.icon}
                   </svg>
                 </span>
-                <span className="text-base font-semibold leading-tight text-[#132238]">
+                <span className="text-[14px] font-semibold leading-tight text-[#132238]">
                   {feature.title}
                   <br />
                   {feature.subtitle}

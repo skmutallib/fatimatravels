@@ -7,24 +7,24 @@ type Faq = { q: string; a: string };
 
 const faqs: Faq[] = [
   {
-    q: "Are all Fatima vehicles inspected before every rental?",
-    a: "Yes. Every Fatima vehicle undergoes a full safety inspection and professional cleaning before each trip, so you always drive away in a car that's spotless and road-ready.",
+    q: "Does every booking come with a driver?",
+    a: "Yes. Every Fatima car is chauffeur-driven — we do not offer self-drive rentals. A professional, verified driver is always included, so you can simply sit back and enjoy the ride.",
   },
   {
-    q: "Do you require a deposit or hold on a credit card?",
-    a: "For most self-drive bookings we place a small refundable security hold that's released automatically once the car is returned in good condition. Chauffeur-driven trips usually need no deposit at all.",
+    q: "Are your drivers experienced and verified?",
+    a: "Absolutely. All our chauffeurs are licensed, background-verified and trained in safe, courteous driving. Many know the local routes across Hyderabad and Telangana in and out.",
   },
   {
-    q: "Do you offer electric or hybrid cars?",
-    a: "Yes. Our fleet includes fuel-efficient hybrid and electric options — just filter by 'Electric' when choosing your car, or ask our team for the greenest ride available.",
+    q: "Will the car and driver come to my location?",
+    a: "Yes. Just share your pickup address when booking and your driver will arrive at your doorstep on time, ready to take you wherever you need to go.",
   },
   {
-    q: "Can I return the car to a different location?",
-    a: "Absolutely. One-way rentals are available across Telangana and major cities — select a different drop-off point at checkout and we'll handle the rest (a small one-way fee may apply).",
+    q: "Are all Fatima vehicles inspected before every trip?",
+    a: "Yes. Every vehicle undergoes a full safety inspection and professional cleaning before each trip, so you always travel in a car that's spotless and road-ready.",
   },
   {
-    q: "How do I unlock or check in to my rental car?",
-    a: "It's contactless. After booking you'll receive a digital key and check-in link in your confirmation — unlock the car right from your phone, or simply meet our chauffeur at the agreed pickup point.",
+    q: "How do I book a car with a driver?",
+    a: "It's simple — pick your car, choose your date, pickup point and destination, and confirm your booking online or over WhatsApp. Your assigned chauffeur's details are shared before the trip.",
   },
 ];
 
