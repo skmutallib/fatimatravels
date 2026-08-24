@@ -11,36 +11,36 @@ const testimonials: Testimonial[] = [
   {
     quote:
       "The booking process was so easy and the car was in perfect condition. Highly recommend Fatima Travels!",
-    name: "Sarah J.",
-    location: "New York, USA",
+    name: "Ananya Reddy",
+    location: "Banjara Hills, Hyderabad",
     avatarBg: "#fde68a",
   },
   {
     quote:
       "Great prices, friendly service, and no hidden fees. My go-to car rental service in the city.",
-    name: "James T.",
-    location: "Chicago, USA",
+    name: "Rahul Verma",
+    location: "Jubilee Hills, Hyderabad",
     avatarBg: "#bae6fd",
   },
   {
     quote:
       "I rented an SUV for a family trip and had an amazing experience from start to finish.",
-    name: "Priya K.",
-    location: "San Francisco, USA",
+    name: "Priya Kumar",
+    location: "Gachibowli, Hyderabad",
     avatarBg: "#fbcfe8",
   },
   {
     quote:
       "Smooth pickup and drop-off. The staff was courteous and the car was spotless. Will book again!",
-    name: "David R.",
-    location: "Austin, USA",
+    name: "Karthik Naidu",
+    location: "Kondapur, Hyderabad",
     avatarBg: "#c7d2fe",
   },
   {
     quote:
       "Best rental experience I've had. Transparent pricing and a fantastic fleet to choose from.",
-    name: "Aisha M.",
-    location: "Seattle, USA",
+    name: "Aisha Mohammed",
+    location: "Secunderabad, Hyderabad",
     avatarBg: "#a7f3d0",
   },
 ];

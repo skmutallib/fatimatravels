@@ -1,14 +1,17 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import {
-  enquire,
   luxuryBrands,
   paint,
   slugify,
   VehicleArt,
   type Vehicle,
 } from "@/features/cars/shared";
+import BookingModal from "@/features/cars/BookingModal";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -33,6 +36,14 @@ const luxuryVans = ["Kia Carnival", "Toyota Vellfire"];
 
 const buses = ["12 Seater", "22 Seater", "30 Seater", "40 Seater", "50 Seater"];
 
+const busSeatRanges: Record<string, string> = {
+  "12 Seater": "12-20 Seats",
+  "22 Seater": "22-30 Seats",
+  "30 Seater": "30-40 Seats",
+  "40 Seater": "40-50 Seats",
+  "50 Seater": "50-60 Seats",
+};
+
 const heroStats = [
   { value: "60+", label: "Models" },
   { value: "24/7", label: "Support" },
@@ -45,10 +56,6 @@ const heroStats = [
 /* ------------------------------------------------------------------ */
 
 const INK = "text-[#132238]";
-
-// A premium card surface with a lift + primary glow on hover.
-const cardBase =
-  "reveal group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-5 shadow-premium transition-all duration-500 hover:-translate-y-2 hover:border-primary/30";
 
 // Spec summary shown as chips on each vehicle card.
 const vehInfo: Record<Vehicle, { label: string; seats: string; bags: string }> = {
@@ -92,13 +99,6 @@ function ArrowRight() {
         strokeLinejoin="round"
       />
     </svg>
-  );
-}
-
-/* Thin accent line that draws itself across the top of a card on hover. */
-function TopAccent() {
-  return (
-    <span className="absolute inset-x-0 top-0 h-0.75 origin-left scale-x-0 bg-linear-to-r from-transparent via-primary to-transparent transition-transform duration-500 group-hover:scale-x-100" />
   );
 }
 
@@ -165,22 +165,22 @@ function ModelCard({
   name,
   variant,
   index,
+  onEnquire,
 }: {
   name: string;
   variant: Vehicle;
   index: number;
+  onEnquire: (name: string) => void;
 }) {
   const p = paint(index);
   const info = vehInfo[variant];
+  const seats = variant === "bus" ? busSeatRanges[name] : info.seats;
   return (
-    <a
-      href={enquire(name)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="reveal group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white shadow-premium transition-all duration-500 hover:-translate-y-2 hover:border-primary/30"
+    <button
+      type="button"
+      onClick={() => onEnquire(name)}
+      className="hover-glow reveal group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white text-left shadow-premium"
     >
-      <TopAccent />
-
       {/* Media panel — car in a soft spotlight with a reflection line */}
       <div className="relative overflow-hidden bg-linear-to-b from-zinc-50 to-white px-6 pt-6">
         <div className="flex items-center justify-between">
@@ -212,7 +212,7 @@ function ModelCard({
         <h3 className={`text-lg font-bold ${INK}`}>{name}</h3>
 
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <Chip icon={<SeatIcon />}>{info.seats}</Chip>
+          <Chip icon={<SeatIcon />}>{seats}</Chip>
           <Chip icon={<BagIcon />}>{info.bags}</Chip>
         </div>
 
@@ -221,7 +221,7 @@ function ModelCard({
           <ArrowRight />
         </span>
       </div>
-    </a>
+    </button>
   );
 }
 
@@ -230,48 +230,147 @@ function ModelCard({
 /* ------------------------------------------------------------------ */
 
 export default function CarsPage() {
+  const [selectedCar, setSelectedCar] = useState<string | null>(null);
+
   return (
     <div className="flex-1 bg-white">
       {/* ============================= HERO ============================= */}
-      <section className="relative isolate overflow-hidden pt-36 pb-14 sm:pb-20">
-        {/* soft background accents */}
+      <section className="relative isolate overflow-hidden pt-36 pb-20 sm:pb-28">
+        {/* ambient background */}
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/10 blur-3xl animate-aurora" />
-          <div className="absolute left-[15%] top-24 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
+          <div className="absolute -right-24 -top-24 h-[32rem] w-[32rem] rounded-full bg-primary/10 blur-3xl animate-aurora" />
+          <div className="absolute left-[10%] top-24 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
           <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-zinc-200 to-transparent" />
         </div>
 
-        <div className="mx-auto w-[90vw] px-6 sm:px-10 lg:px-16">
-          <div className="reveal flex items-center gap-3">
-            <span className="h-px w-8 bg-primary" />
-            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
-              Our Fleet
-            </span>
+        <div className="mx-auto grid w-[90vw] items-center gap-14 px-6 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:px-16">
+          {/* LEFT — copy */}
+          <div>
+            <div className="reveal flex items-center gap-3">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+                Our Fleet
+              </span>
+            </div>
+
+            <h1
+              className={`mt-6 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl ${INK}`}
+            >
+              <span className="block overflow-hidden pb-1">
+                <span
+                  className="animate-line-rise block"
+                  style={{ "--d": "80ms" } as CSSProperties}
+                >
+                  A car for every
+                </span>
+              </span>
+              <span className="block overflow-hidden pb-1">
+                <span
+                  className="animate-line-rise block text-primary"
+                  style={{ "--d": "200ms" } as CSSProperties}
+                >
+                  journey, chauffeur-driven.
+                </span>
+              </span>
+            </h1>
+
+            <p
+              className="reveal mt-7 max-w-xl text-lg leading-relaxed text-zinc-600"
+              style={{ "--d": "160ms" } as CSSProperties}
+            >
+              From economical sedans to Rolls-Royce flagships and 50-seat
+              coaches, a professionally maintained fleet with a driver at the
+              wheel, on your schedule.
+            </p>
+
+            <dl
+              className="reveal mt-12 grid max-w-2xl grid-cols-2 gap-y-8 sm:grid-cols-4 sm:gap-0"
+              style={{ "--d": "260ms" } as CSSProperties}
+            >
+              {heroStats.map((s, i) => (
+                <div
+                  key={s.label}
+                  className={`sm:px-7 ${
+                    i !== 0 ? "sm:border-l sm:border-zinc-200" : "sm:pl-0"
+                  }`}
+                >
+                  <dt className="sr-only">{s.label}</dt>
+                  <dd>
+                    <span className={`block text-3xl font-bold tracking-tight ${INK}`}>
+                      {s.value}
+                    </span>
+                    <span className="mt-1.5 block text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-400">
+                      {s.label}
+                    </span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          <h1
-            className={`reveal mt-5 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl ${INK}`}
-          >
-            A car for every
-            <br />
-            journey, <span className="text-primary">chauffeur-driven.</span>
-          </h1>
+          {/* RIGHT — live fleet plaque */}
+          <div className="reveal hidden lg:block lg:pl-10">
+            <div className="group relative overflow-hidden rounded-[2rem] border border-zinc-200/70 bg-[#0e1b2e] p-10 shadow-premium">
+              <div className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(11,180,181,0.35),transparent_60%)] blur-2xl" />
+              <div className="pointer-events-none absolute -left-14 bottom-0 h-56 w-56 rounded-full bg-primary/15 blur-3xl" />
 
-          <p className="reveal mt-6 max-w-xl text-lg leading-relaxed text-zinc-600">
-            From economical sedans to Rolls-Royce flagships and 50-seat coaches —
-            a professionally maintained fleet with a driver at the wheel, on your
-            schedule.
-          </p>
+              <div className="relative">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+                    Live Fleet
+                  </span>
+                  <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-300">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    </span>
+                    Available Today
+                  </span>
+                </div>
 
-          {/* stat row */}
-          <div className="reveal mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-200/70 sm:grid-cols-4">
-            {heroStats.map((s) => (
-              <div key={s.label} className="bg-white px-5 py-5">
-                <p className={`text-2xl font-bold ${INK}`}>{s.value}</p>
-                <p className="mt-0.5 text-sm text-zinc-500">{s.label}</p>
+                <p className="mt-5 text-7xl font-extrabold tracking-tight text-white">
+                  60+
+                </p>
+                <p className="mt-2 text-sm text-zinc-400">
+                  Models, from city sedans to Rolls-Royce.
+                </p>
+
+                <div className="mt-8 h-px w-full bg-linear-to-r from-transparent via-white/15 to-transparent" />
+
+                <p className="mt-8 text-base leading-relaxed text-zinc-300">
+                  100% chauffeur-driven, dispatched pan-India, on your
+                  schedule.
+                </p>
+
+                <div className="mt-8 flex items-center gap-3 text-primary">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15">
+                    <ChauffeurIcon />
+                  </span>
+                  <span className="text-sm font-semibold text-white">
+                    Every seat, one driver away.
+                  </span>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
+        </div>
+
+        {/* scroll cue */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-6 hidden justify-center sm:flex">
+          <span className="flex h-9 w-9 animate-scroll-cue items-center justify-center rounded-full border border-zinc-200 text-zinc-400">
+            <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4">
+              <path
+                d="M5 9l7 7 7-7"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
         </div>
       </section>
 
@@ -284,7 +383,7 @@ export default function CarsPage() {
         />
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {sedans.map((name, i) => (
-            <ModelCard key={name} name={name} variant="sedan" index={i} />
+            <ModelCard key={name} name={name} variant="sedan" index={i} onEnquire={setSelectedCar} />
           ))}
         </div>
       </section>
@@ -298,7 +397,7 @@ export default function CarsPage() {
         />
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {suvs.map((name, i) => (
-            <ModelCard key={name} name={name} variant="suv" index={i} />
+            <ModelCard key={name} name={name} variant="suv" index={i} onEnquire={setSelectedCar} />
           ))}
         </div>
       </section>
@@ -307,25 +406,20 @@ export default function CarsPage() {
       <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
         <SectionHead
           eyebrow="Premium marques"
-          title="Luxury Marques"
-          subtitle="The world's finest badges — chauffeur-driven, on your schedule."
+          title="Luxury Collection"
+          subtitle="The world's finest badges, chauffeur-driven, on your schedule."
         />
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {luxuryBrands.map((b, i) => (
             <Link
               key={b.brand}
               href={`/cars/${slugify(b.brand)}`}
-              className={`${cardBase} p-7`}
+              className="hover-glow reveal group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-primary p-7 shadow-premium"
             >
-              <TopAccent />
-
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                    {b.tag}
-                  </p>
-                  <h3 className={`mt-1 text-xl font-bold ${INK}`}>{b.brand}</h3>
-                  <p className="mt-0.5 text-sm text-zinc-500">
+                  <h3 className="text-xl font-bold text-white">{b.brand}</h3>
+                  <p className="mt-0.5 text-sm text-white/65">
                     {b.models.length} models
                   </p>
                 </div>
@@ -338,7 +432,7 @@ export default function CarsPage() {
                 </div>
               </div>
 
-              <span className="mt-7 flex items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+              <span className="mt-7 flex items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition-colors group-hover:bg-white group-hover:text-primary">
                 View all models
                 <ArrowRight />
               </span>
@@ -349,43 +443,60 @@ export default function CarsPage() {
 
       {/* ========================= ULTRA LUXURY ========================= */}
       <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
-        <SectionHead
-          eyebrow="By request"
-          title="Ultra Luxury"
-          subtitle="Flagship motoring, available by request with a dedicated chauffeur."
-        />
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
-          {ultraLuxury.map((u) => (
-            <a
-              key={u.brand}
-              href={enquire(u.brand)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${cardBase} p-7 sm:flex-row sm:items-center sm:gap-7`}
-            >
-              <TopAccent />
+        <div className="reveal relative overflow-hidden rounded-[2.5rem] bg-linear-to-br from-[#0b1220] via-[#132238] to-[#0b1220] px-6 py-14 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.55)] sm:px-10 sm:py-18 lg:px-14">
+          {/* ambient gold glows */}
+          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[#e9c877]/10 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-[#e9c877]/10 blur-3xl" />
+          {/* hairline gold frame */}
+          <div className="pointer-events-none absolute inset-3 rounded-[2rem] border border-[#e9c877]/15 sm:inset-4" />
 
-              <div className="relative flex h-20 w-32 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-b from-zinc-50 to-zinc-100/60">
-                <ArtGlow />
-                <div className="relative flex h-14 w-24 items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
-                  <VehicleArt variant="sedan" color="#1f2937" roof="#374151" />
-                </div>
-              </div>
-
-              <div className="mt-5 flex-1 sm:mt-0">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                  Flagship
-                </p>
-                <h3 className={`mt-1 text-2xl font-bold ${INK}`}>{u.brand}</h3>
-                <p className="mt-1.5 text-sm text-zinc-500">{u.line}</p>
-              </div>
-
-              <span className="mt-5 flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(11,180,181,0.9)] transition-colors group-hover:bg-[#0a9fa0] sm:mt-0 sm:shrink-0">
-                Reserve
-                <ArrowRight />
+          <div className="relative max-w-2xl">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-[#e9c877]/70" />
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#e9c877]">
+                By Invitation
               </span>
-            </a>
-          ))}
+            </div>
+            <h2 className="mt-3 font-serif text-4xl italic font-medium tracking-tight text-sheen-gold sm:text-5xl">
+              Ultra Luxury
+            </h2>
+            <p className="mt-3 text-white/60">
+              Flagship motoring, available by request with a dedicated chauffeur.
+            </p>
+          </div>
+
+          <div className="relative mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {ultraLuxury.map((u) => (
+              <button
+                key={u.brand}
+                type="button"
+                onClick={() => setSelectedCar(u.brand)}
+                className="hover-glow hover-glow-gold group relative flex flex-col overflow-hidden rounded-3xl border border-[#e9c877]/25 bg-white/[0.04] p-7 text-left backdrop-blur-sm sm:flex-row sm:items-center sm:gap-7"
+              >
+                <div className="relative flex h-20 w-32 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10">
+                  <span className="pointer-events-none absolute h-28 w-28 rounded-full bg-[#e9c877]/25 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="relative flex h-14 w-24 items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
+                    <VehicleArt variant="sedan" color="#e4e6ea" roof="#c3c7d1" />
+                  </div>
+                </div>
+
+                <div className="mt-5 flex-1 sm:mt-0">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e9c877]">
+                    Flagship
+                  </p>
+                  <h3 className="mt-1 font-serif text-2xl italic font-medium text-white">
+                    {u.brand}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-white/55">{u.line}</p>
+                </div>
+
+                <span className="mt-5 flex items-center justify-center gap-2 rounded-xl border border-[#e9c877]/50 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-[#e9c877] transition-colors duration-300 group-hover:bg-[#e9c877] group-hover:text-[#0b1220] sm:mt-0 sm:shrink-0">
+                  Reserve
+                  <ArrowRight />
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -394,11 +505,11 @@ export default function CarsPage() {
         <SectionHead
           eyebrow="Travel together"
           title="Luxury Vans"
-          subtitle="Travel together in comfort — ideal for families and small groups."
+          subtitle="Travel together in comfort, ideal for families and small groups."
         />
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {luxuryVans.map((name, i) => (
-            <ModelCard key={name} name={name} variant="van" index={i} />
+            <ModelCard key={name} name={name} variant="van" index={i} onEnquire={setSelectedCar} />
           ))}
         </div>
       </section>
@@ -412,10 +523,12 @@ export default function CarsPage() {
         />
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {buses.map((name, i) => (
-            <ModelCard key={name} name={name} variant="bus" index={i} />
+            <ModelCard key={name} name={name} variant="bus" index={i} onEnquire={setSelectedCar} />
           ))}
         </div>
       </section>
+
+      <BookingModal car={selectedCar} onClose={() => setSelectedCar(null)} />
     </div>
   );
 }

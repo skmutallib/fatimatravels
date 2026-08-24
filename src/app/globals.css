@@ -62,6 +62,25 @@ body {
     0 8px 18px -10px rgba(0, 0, 0, 0.18);
 }
 
+/* Modern premium card hover — soft ambient glow + lift.
+   Shared across every interactive card site-wide for one consistent hover language.
+   --glow-color can be overridden (see .hover-glow-gold) to match a card's theme. */
+.hover-glow {
+  --glow-color: rgba(11, 180, 181, 0.45);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hover-glow:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 30px 60px -20px var(--glow-color),
+    0 14px 28px -10px rgba(15, 23, 42, 0.14);
+}
+.hover-glow-gold {
+  --glow-color: rgba(233, 200, 119, 0.5);
+}
+
 /* ---- Cars page: luxury motion ---- */
 
 /* Slow drifting aurora blobs behind the hero */
@@ -228,4 +247,58 @@ body {
 /* Marquee variant travelling the other way for layered keyword rails */
 .animate-marquee-reverse {
   animation: marquee 40s linear infinite reverse;
+}
+
+/* ---- Booking modal: smooth open/close ---- */
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-modal-backdrop-in {
+  animation: modal-backdrop-in 0.35s ease both;
+}
+
+@keyframes modal-backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.animate-modal-backdrop-out {
+  animation: modal-backdrop-out 0.25s ease both;
+}
+
+@keyframes modal-panel-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-modal-panel-in {
+  animation: modal-panel-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes modal-panel-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(16px);
+  }
+}
+.animate-modal-panel-out {
+  animation: modal-panel-out 0.22s cubic-bezier(0.4, 0, 1, 1) both;
 }

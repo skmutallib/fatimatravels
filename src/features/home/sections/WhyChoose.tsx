@@ -116,7 +116,7 @@ const packages: Pkg[] = [
   {
     name: "Railway Station Pick & Drop",
     detail: "Hyderabad",
-    desc: "Secunderabad · Nampally · Kacheguda — on the dot.",
+    desc: "Secunderabad · Nampally · Kacheguda, on the dot.",
     accent: "#0bb4b5",
     icon: <TrainIcon />,
     car: { body: "#1e3a5f", roof: "#14273f" },
@@ -128,33 +128,83 @@ export default function WhyChoose() {
     <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
       <div className="flex flex-col gap-16">
         {/* TOP — Why choose */}
-        <div className="reveal">
-          <h2 className="text-4xl font-bold tracking-tight text-[#132238]">
-            Why Choose Fatima Travels?
-          </h2>
+        <div className="reveal relative overflow-hidden rounded-[2.5rem] bg-linear-to-br from-primary via-[#0aa6a7] to-[#088f90] px-6 py-12 shadow-premium sm:px-10 sm:py-16 lg:px-14">
+          {/* ambient corner glows */}
+          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-[#f5d485]/20 blur-3xl" />
 
-          <div className="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:gap-8">
-            <ul className="w-full space-y-5 sm:w-auto sm:shrink-0">
-              {reasons.map((reason) => (
-                <li key={reason} className="flex items-center gap-3.5">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-white">
-                    <Check className="h-4 w-4" strokeWidth={3} />
-                  </span>
-                  <span className="text-base text-zinc-700 sm:whitespace-nowrap">
-                    {reason}
-                  </span>
-                </li>
-              ))}
-            </ul>
+          <div className="relative grid gap-14 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+            {/* Copy + reasons */}
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="h-px w-8 bg-white/70" />
+                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
+                  Our Advantage
+                </span>
+              </div>
+              <h2 className="mt-3 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                Why Choose Fatima Travels?
+              </h2>
+              <p className="mt-4 max-w-md text-white/75">
+                Premium service standards built around comfort, safety, and
+                complete transparency, on every trip, every time.
+              </p>
 
-            <div className="relative aspect-square w-full max-w-[360px] shrink-0">
-              <Image
-                src="/why-choose-city.png"
-                alt="City skyline with greenery"
-                fill
-                sizes="360px"
-                className="object-contain"
-              />
+              <ul className="mt-9 space-y-3">
+                {reasons.map((reason, i) => (
+                  <li
+                    key={reason}
+                    className="group flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 px-4 py-3.5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/95 hover:shadow-[0_14px_30px_-18px_rgba(0,0,0,0.35)]"
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/15 text-white transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                      <Check className="h-4 w-4" strokeWidth={3} />
+                    </span>
+                    <span className="text-[15px] font-medium text-white transition-colors duration-300 group-hover:text-[#132238]">
+                      {reason}
+                    </span>
+                    <span className="ml-auto font-mono text-xs text-white/40 transition-colors duration-300 group-hover:text-zinc-300">
+                      0{i + 1}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Image + floating stat badges */}
+            <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+              <div className="absolute inset-6 rounded-full bg-white/20 blur-3xl" />
+              <div className="relative h-full w-full">
+                <Image
+                  src="/why-choose-city.png"
+                  alt="City skyline with greenery"
+                  fill
+                  sizes="420px"
+                  className="object-contain drop-shadow-xl"
+                />
+              </div>
+
+              <div className="absolute -left-4 top-6 flex animate-float-slow items-center gap-2 rounded-2xl border border-zinc-200/70 bg-white/90 px-4 py-2.5 shadow-premium backdrop-blur-md sm:-left-8">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-400/15 text-amber-500">
+                  <StarIcon />
+                </span>
+                <div className="leading-tight">
+                  <div className="text-sm font-bold text-[#132238]">4.9/5</div>
+                  <div className="text-[11px] text-zinc-500">Google Rating</div>
+                </div>
+              </div>
+
+              <div
+                className="absolute -right-4 bottom-8 flex animate-float-slow items-center gap-2 rounded-2xl border border-zinc-200/70 bg-white/90 px-4 py-2.5 shadow-premium backdrop-blur-md sm:-right-8"
+                style={{ animationDelay: "1.2s" }}
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <Check className="h-4 w-4" strokeWidth={3} />
+                </span>
+                <div className="leading-tight">
+                  <div className="text-sm font-bold text-[#132238]">3,059+</div>
+                  <div className="text-[11px] text-zinc-500">Trips Completed</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -174,16 +224,11 @@ export default function WhyChoose() {
             {packages.map((pkg, i) => (
               <div
                 key={pkg.name}
-                className={`group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-7 shadow-premium transition-all duration-500 hover:-translate-y-2 hover:border-primary/25 ${
-                  pkg.featured ? "lg:-translate-y-3 ring-1 ring-[#b8892f]/15" : ""
+                className={`hover-glow group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-7 shadow-premium ${
+                  pkg.featured ? "pt-12 lg:-translate-y-3 ring-1 ring-[#b8892f]/15" : ""
                 }`}
-                style={{ "--accent": pkg.accent } as CSSProperties}
+                style={{ "--accent": pkg.accent, "--glow-color": `${pkg.accent}73` } as CSSProperties}
               >
-                {/* top accent sheen, sweeps in on hover */}
-                <span
-                  className="pointer-events-none absolute inset-x-0 top-0 h-0.75 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-                  style={{ background: `linear-gradient(90deg, transparent, ${pkg.accent}, transparent)` }}
-                />
                 {/* soft ambient glow in the card's accent color */}
                 <div
                   className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full blur-3xl"

@@ -43,12 +43,6 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-function TopAccent() {
-  return (
-    <span className="absolute inset-x-0 top-0 h-0.75 origin-left scale-x-0 bg-linear-to-r from-transparent via-primary to-transparent transition-transform duration-500 group-hover:scale-x-100" />
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /*  Contact info cards                                                 */
 /* ------------------------------------------------------------------ */
@@ -138,7 +132,7 @@ export default function ContactPage() {
             </span>
           </h1>
           <p className="reveal mt-7 max-w-xl text-lg leading-relaxed text-zinc-600">
-            Airport run, wedding fleet or a cross-country trip — tell us what
+            Airport run, wedding fleet or a cross-country trip, tell us what
             you need and we&apos;ll confirm your chauffeur within minutes.
           </p>
         </div>
@@ -152,12 +146,11 @@ export default function ContactPage() {
             onSubmit={handleSubmit}
             className="reveal relative overflow-hidden rounded-[2rem] border border-zinc-200/70 bg-white p-8 shadow-premium sm:p-10"
           >
-            <TopAccent />
             <h2 className={`text-2xl font-bold tracking-tight ${INK}`}>
               Send us an enquiry
             </h2>
             <p className="mt-1.5 text-sm text-zinc-500">
-              We&apos;ll reply on WhatsApp — usually within minutes.
+              We&apos;ll reply on WhatsApp, usually within minutes.
             </p>
 
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -251,9 +244,8 @@ export default function ContactPage() {
                 href={c.href}
                 target={c.external ? "_blank" : undefined}
                 rel={c.external ? "noopener noreferrer" : undefined}
-                className="group relative flex items-start gap-4 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-premium transition-all duration-500 hover:-translate-y-1 hover:border-primary/30"
+                className="hover-glow group relative flex items-start gap-4 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-premium"
               >
-                <TopAccent />
                 <span className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl transition-transform duration-500 group-hover:scale-110">
                   <span className="absolute inset-0 bg-primary/10 transition-opacity duration-500 group-hover:opacity-0" />
                   <span className="absolute inset-0 bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

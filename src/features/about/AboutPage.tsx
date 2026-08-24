@@ -4,6 +4,7 @@ import { BadgeIndianRupee, Clock, ShieldCheck, Sparkles } from "lucide-react";
 
 import { siteConfig } from "@/lib/site";
 import { luxuryBrands, paint, VehicleArt } from "@/features/cars/shared";
+import ValuesGrid from "@/features/about/ValuesGrid";
 
 /* ------------------------------------------------------------------ */
 /*  Booking helper — opens WhatsApp with a pre-filled enquiry          */
@@ -29,12 +30,6 @@ function Eyebrow({ children }: { children: ReactNode }) {
         {children}
       </span>
     </div>
-  );
-}
-
-function TopAccent() {
-  return (
-    <span className="absolute inset-x-0 top-0 h-0.75 origin-left scale-x-0 bg-linear-to-r from-transparent via-primary to-transparent transition-transform duration-500 group-hover:scale-x-100" />
   );
 }
 
@@ -76,7 +71,7 @@ function ChauffeurIcon() {
 /* ------------------------------------------------------------------ */
 
 const heroStats = [
-  { value: "24+", label: "Years on the road" },
+  { value: "25+", label: "Years on the road" },
   { value: "200+", label: "Cities served" },
   { value: "24/7", label: "Dispatch" },
   { value: "100%", label: "Chauffeur-driven" },
@@ -90,12 +85,12 @@ const values = [
   },
   {
     name: "Always On Time",
-    desc: "Live GPS dispatch and route planning mean your car is waiting for you — not the other way around.",
+    desc: "Live GPS dispatch and route planning mean your car is waiting for you, not the other way around.",
     icon: <Clock className="h-6 w-6" strokeWidth={1.75} />,
   },
   {
     name: "Comfort & Class",
-    desc: "Sanitised, well-appointed interiors on every trip — from executive sedans to our ultra-luxury marques.",
+    desc: "Sanitised, well-appointed interiors on every trip, from executive sedans to our ultra-luxury marques.",
     icon: <Sparkles className="h-6 w-6" strokeWidth={1.75} />,
   },
   {
@@ -114,7 +109,7 @@ const milestones = [
   {
     year: "Early years",
     title: "Built on word of mouth",
-    desc: "Families, corporates and wedding parties across the city start choosing us — for service, not just for cars.",
+    desc: "Families, corporates and wedding parties across the city start choosing us, for service, not just for cars.",
   },
   {
     year: "Growth",
@@ -124,12 +119,12 @@ const milestones = [
   {
     year: "Today",
     title: "A pan-India standard",
-    desc: "24+ years on, 24/7 dispatch and a fleet spanning executive sedans to Rolls-Royce and Bentley — still chauffeur-driven, always.",
+    desc: "25+ years on, 24/7 dispatch and a fleet spanning executive sedans to Rolls-Royce and Bentley, still chauffeur-driven, always.",
   },
 ];
 
 const standard = [
-  "Uniformed, English-speaking chauffeurs",
+  "Uniformed, professional chauffeurs",
   "Sanitised before every single ride",
   "Live GPS tracking on every trip",
   "Dispatch open 24 hours, 7 days a week",
@@ -162,7 +157,7 @@ export default function AboutPage() {
             <h1
               className={`reveal mt-6 text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl ${INK}`}
             >
-              Two decades of getting Hyderabad there —{" "}
+              Two decades of getting Hyderabad there,{" "}
               <span className="font-serif italic font-medium text-sheen-teal">
                 safely, on time, in style.
               </span>
@@ -170,7 +165,7 @@ export default function AboutPage() {
 
             <p className="reveal mt-7 max-w-xl text-lg leading-relaxed text-zinc-600">
               Fatima Tours and Travels is Hyderabad&apos;s premium chauffeured
-              travel operator — trusted since 2001 by families, corporates and
+              travel operator, trusted since 2001 by families, corporates and
               wedding parties who expect more than just a car. Every trip is
               driven, never self-drive, and every driver is one of ours.
             </p>
@@ -215,7 +210,7 @@ export default function AboutPage() {
                 <div className="mt-8 h-px w-full bg-linear-to-r from-transparent via-white/15 to-transparent" />
 
                 <p className="mt-8 text-base leading-relaxed text-zinc-300">
-                  Chauffeur-driven since day one — no self-drive, no
+                  Chauffeur-driven since day one, no self-drive, no
                   compromises, no exceptions.
                 </p>
 
@@ -224,7 +219,7 @@ export default function AboutPage() {
                     <ChauffeurIcon />
                   </span>
                   <span className="text-sm font-semibold text-white">
-                    Still family-run, still hands-on.
+                    Where hospitality meets the road.
                   </span>
                 </div>
               </div>
@@ -237,16 +232,16 @@ export default function AboutPage() {
       <section className="relative isolate mx-auto w-[90vw] overflow-hidden px-6 py-20 sm:px-10 lg:px-16">
         <div className="pointer-events-none absolute right-0 top-1/2 -z-10 h-[30rem] w-[30rem] -translate-y-1/2 rounded-full bg-primary/5 blur-3xl" />
 
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-10">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-14">
           {/* LEFT — narrative */}
           <div className="reveal">
             <Eyebrow>Our story</Eyebrow>
             <h2 className={`mt-3 text-3xl font-bold tracking-tight sm:text-4xl ${INK}`}>
-              Two decades on the road.
+              Two and a half decades on the road.
             </h2>
             <p className="mt-6 text-base leading-relaxed text-zinc-600">
               What started as a single car and a promise in Hyderabad has
-              grown into a fleet that covers 200+ cities across India —
+              grown into a fleet that covers 200+ cities across India,
               without ever losing the thing that started it:{" "}
               <span className="font-serif italic font-medium text-sheen-gold">
                 a driver you can trust
@@ -256,47 +251,45 @@ export default function AboutPage() {
             <p className="mt-4 text-base leading-relaxed text-zinc-600">
               We&apos;ve never been the biggest fleet in the city. We&apos;ve
               tried to be the one that shows up early, drives carefully, and
-              treats every ride — an airport run, a wedding, a cross-country
-              trip — with the same care.
+              treats every ride, an airport run, a wedding, a cross-country
+              trip, with the same care.
             </p>
 
             <a
               href={book("your company")}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+              className="group mt-9 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_32px_-16px_rgba(11,180,181,0.9)] transition-transform duration-300 hover:-translate-y-0.5"
             >
               Talk to our team
               <ArrowRight />
             </a>
           </div>
 
-          {/* RIGHT — vertical timeline */}
-          <div className="reveal relative pl-2">
-            <div className="pointer-events-none absolute left-[7px] top-2 bottom-2 w-px border-l-2 border-dashed border-zinc-200" />
-            <ol className="space-y-10">
-              {milestones.map((m) => (
-                <li key={m.title} className="group relative pl-10">
-                  <span className="absolute left-0 top-1 flex h-4 w-4 items-center justify-center">
-                    <span className="absolute inline-flex h-4 w-4 rounded-full bg-primary/30 opacity-0 transition-opacity duration-300 group-hover:animate-ping group-hover:opacity-100" />
-                    <span className="relative h-3.5 w-3.5 rounded-full border-2 border-primary bg-white transition-colors duration-300 group-hover:bg-primary" />
-                  </span>
+          {/* RIGHT — milestone cards */}
+          <ol className="reveal space-y-5">
+            {milestones.map((m, i) => (
+              <li
+                key={m.title}
+                className="hover-glow group relative overflow-hidden rounded-2xl border border-zinc-200/70 bg-white p-6 pl-8"
+              >
+                <span className="absolute inset-y-0 left-0 w-1 bg-primary/20 transition-colors duration-300 group-hover:bg-primary" />
+                <span className="pointer-events-none absolute -right-2 -top-5 text-7xl font-extrabold text-zinc-50 transition-colors duration-300 group-hover:text-primary/5">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
 
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                    {m.year}
-                  </span>
-                  <h3
-                    className={`mt-1.5 text-lg font-bold transition-colors duration-300 group-hover:text-primary ${INK}`}
-                  >
-                    {m.title}
-                  </h3>
-                  <p className="mt-1.5 max-w-md text-sm leading-relaxed text-zinc-500">
-                    {m.desc}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
+                <span className="relative text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                  {m.year}
+                </span>
+                <h3 className={`relative mt-1.5 text-lg font-bold ${INK}`}>
+                  {m.title}
+                </h3>
+                <p className="relative mt-1.5 max-w-md text-sm leading-relaxed text-zinc-500">
+                  {m.desc}
+                </p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -312,25 +305,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((v) => (
-            <div
-              key={v.name}
-              className="reveal group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-7 shadow-premium transition-all duration-500 hover:-translate-y-2 hover:border-primary/30"
-            >
-              <TopAccent />
-
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-white">
-                {v.icon}
-              </span>
-
-              <h3 className={`mt-7 text-lg font-bold ${INK}`}>{v.name}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-500">
-                {v.desc}
-              </p>
-            </div>
-          ))}
-        </div>
+        <ValuesGrid values={values} />
       </section>
 
       {/* ========================= MARQUES WE DRIVE ========================= */}
@@ -361,9 +336,8 @@ export default function AboutPage() {
             return (
               <div
                 key={m.brand}
-                className="reveal group relative flex flex-col items-center overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-premium transition-all duration-500 hover:-translate-y-2 hover:border-primary/30"
+                className="hover-glow reveal group relative flex flex-col items-center overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-premium"
               >
-                <TopAccent />
                 <div className="relative flex h-16 w-full items-center justify-center overflow-hidden">
                   <span className="pointer-events-none absolute h-20 w-20 rounded-full bg-primary/15 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="relative h-14 w-24 transition-transform duration-500 ease-out group-hover:scale-110">
@@ -431,7 +405,7 @@ export default function AboutPage() {
             Ride with the team Hyderabad trusts.
           </h2>
           <p className="relative mx-auto mt-4 max-w-xl text-lg text-zinc-600">
-            24 years, one promise — a driver you can trust, a car you can
+            25 years, one promise, a driver you can trust, a car you can
             rely on. Every single time.
           </p>
           <div className="relative mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">

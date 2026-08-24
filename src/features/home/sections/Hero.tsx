@@ -44,7 +44,7 @@ const features = [
 
 export default function Hero() {
   return (
-    <section className="relative isolate h-[90vh] w-screen overflow-hidden">
+    <section className="relative isolate min-h-screen w-screen overflow-hidden sm:h-[90vh] sm:min-h-0">
       {/* Background image */}
       <Image
         src="/herobackground.jpg"
@@ -54,9 +54,9 @@ export default function Hero() {
         sizes="100vw"
         className="-z-20 object-cover object-right"
       />
-      <div className="flex h-full w-full items-center px-6 sm:px-30">
+      <div className="flex h-full w-full items-center px-6 pt-28 pb-16 sm:px-30 sm:py-0">
         <div className="max-w-2xl">
-          <h1 className="text-6xl font-extrabold leading-[1.05] tracking-tight text-[#132238]">
+          <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-[#132238] sm:text-6xl sm:leading-[1.05]">
             Move Around
             <br />
             Your City,
@@ -64,13 +64,13 @@ export default function Hero() {
             <span className="text-primary">Your Way.</span>
           </h1>
 
-          <p className="mt-8 text-xs leading-relaxed text-zinc-600 sm:text-lg">
+          <p className="mt-6 text-sm leading-relaxed text-zinc-600 sm:mt-8 sm:text-lg">
             Flexible car rentals for every journey.
             <br />
             Daily, weekly, or monthly &ndash; you choose.
           </p>
 
-          <ul className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <ul className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4 sm:mt-8 sm:gap-x-8">
             {features.map((feature) => (
               <li key={feature.subtitle} className="flex items-center gap-2.5">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/40 text-primary">

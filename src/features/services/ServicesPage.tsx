@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { siteConfig } from "@/lib/site";
+import ServiceStack from "@/features/services/ServiceStack";
+import CoverageRoute from "@/features/services/CoverageRoute";
 
 /* ------------------------------------------------------------------ */
 /*  Booking helper — opens WhatsApp with a pre-filled enquiry          */
@@ -117,20 +119,6 @@ function ChauffeurIcon() {
   );
 }
 
-function MapPin() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-[18px] w-[18px]">
-      <path
-        d="M12 21c5-4.5 7.5-8 7.5-11.5A7.5 7.5 0 0 0 4.5 9.5C4.5 13 7 16.5 12 21Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <circle cx="12" cy="9.5" r="2.5" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
-  );
-}
-
 function ArrowRight() {
   return (
     <svg
@@ -157,6 +145,7 @@ type Service = {
   tag: string;
   name: string;
   desc: string;
+  points: string[];
   icon: ReactNode;
 };
 
@@ -164,37 +153,43 @@ const services: Service[] = [
   {
     tag: "Hyderabad",
     name: "Airport Pick & Drop",
-    desc: "RGIA Shamshabad — 24/7 meet-and-greet with live flight tracking, so we're at arrivals before you are.",
+    desc: "RGIA Shamshabad, 24/7 meet-and-greet with live flight tracking, so we're at arrivals before you are.",
+    points: ["RGIA Shamshabad coverage", "24/7 meet-and-greet", "Live flight tracking"],
     icon: <PlaneIcon />,
   },
   {
     tag: "Local",
     name: "Hyderabad Sightseeing",
-    desc: "Charminar, Golconda, Ramoji Film City — full-day curated itineraries with a driver who knows the city.",
+    desc: "Charminar, Golconda, Ramoji Film City, full-day curated itineraries with a driver who knows the city.",
+    points: ["Charminar, Golconda, Ramoji Film City", "Full-day curated itineraries", "A driver who knows the city"],
     icon: <LandmarkIcon />,
   },
   {
     tag: "All India",
     name: "Outstation Trips",
-    desc: "Vijayawada, Bengaluru, Goa, Tirupati — every route, every day, one-way or round trip.",
+    desc: "Vijayawada, Bengaluru, Goa, Tirupati, every route, every day, one-way or round trip.",
+    points: ["Vijayawada, Bengaluru, Goa, Tirupati", "Every route, every day", "One-way or round trip"],
     icon: <RouteIcon />,
   },
   {
     tag: "B2B",
     name: "Corporate Travel",
     desc: "Monthly billing, dedicated cars and executive chauffeurs for teams that can't afford to be late.",
+    points: ["Monthly billing", "Dedicated cars", "Executive chauffeurs"],
     icon: <BriefcaseIcon />,
   },
   {
     tag: "Signature",
     name: "Wedding Car Rental",
     desc: "Decorated luxury sedans, SUVs and convertibles that make an entrance worthy of the day.",
+    points: ["Decorated luxury sedans", "SUVs and convertibles", "An entrance worthy of the day"],
     icon: <RingsIcon />,
   },
   {
     tag: "Hyderabad",
     name: "Railway Pick & Drop",
-    desc: "Secunderabad · Nampally · Kacheguda — on the dot, with tracking for every train.",
+    desc: "Secunderabad · Nampally · Kacheguda, on the dot, with tracking for every train.",
+    points: ["Secunderabad · Nampally · Kacheguda", "On the dot", "Tracking for every train"],
     icon: <TrainIcon />,
   },
 ];
@@ -202,7 +197,7 @@ const services: Service[] = [
 const heroStats = [
   { value: "24/7", label: "Dispatch" },
   { value: "200+", label: "Cities served" },
-  { value: "24+", label: "Years" },
+  { value: "25+", label: "Years" },
   { value: "100%", label: "Chauffeur-driven" },
 ];
 
@@ -229,12 +224,6 @@ const INK = "text-[#132238]";
 /*  Small pieces                                                       */
 /* ------------------------------------------------------------------ */
 
-function TopAccent() {
-  return (
-    <span className="absolute inset-x-0 top-0 h-0.75 origin-left scale-x-0 bg-linear-to-r from-transparent via-primary to-transparent transition-transform duration-500 group-hover:scale-x-100" />
-  );
-}
-
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
     <div className="flex items-center gap-3">
@@ -247,7 +236,7 @@ function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 const hallmarks = [
-  "Uniformed, English-speaking chauffeurs",
+  "Uniformed, professional chauffeurs",
   "Sanitised before every single ride",
   "Live GPS tracking on every trip",
   "Dispatch open 24 hours, 7 days a week",
@@ -285,7 +274,7 @@ export default function ServicesPage() {
             </h1>
 
             <p className="reveal mt-7 max-w-xl text-lg leading-relaxed text-zinc-600">
-              One operator for every journey — airport runs, city tours, weddings,
+              One operator for every journey, airport runs, city tours, weddings,
               corporate fleets and cross-country outstation trips. Chauffeured,
               sanitised and available 24 hours a day.
             </p>
@@ -373,41 +362,12 @@ export default function ServicesPage() {
             Everything, under one roof.
           </h2>
           <p className="mt-2 text-zinc-500">
-            Six ways we move Hyderabad — pick one, or let us plan the whole trip.
+            Six ways we move Hyderabad, pick one, or let us plan the whole trip.
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <a
-              key={s.name}
-              href={book(s.name)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="reveal group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-7 shadow-premium transition-all duration-500 hover:-translate-y-2 hover:border-primary/30"
-            >
-              <TopAccent />
-
-              <div className="flex items-center justify-between">
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-white">
-                  {s.icon}
-                </span>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400 transition-colors group-hover:text-primary">
-                  {s.tag}
-                </span>
-              </div>
-
-              <h3 className={`mt-7 text-xl font-bold ${INK}`}>{s.name}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-500">
-                {s.desc}
-              </p>
-
-              <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                Book this
-                <ArrowRight />
-              </span>
-            </a>
-          ))}
+        <div className="mt-8">
+          <ServiceStack services={services} whatsapp={siteConfig.whatsapp} />
         </div>
       </section>
 
@@ -432,7 +392,7 @@ export default function ServicesPage() {
                 The Luxury Chauffeur experience.
               </h2>
               <p className="mt-3 text-base leading-relaxed text-zinc-300">
-                Uniformed, English-speaking drivers in a sanitised premium sedan —
+                Uniformed, English-speaking drivers in a sanitised premium sedan,
                 for weddings, executives and guests who expect the finest.
                 <span className="text-white"> From ₹2,500 / day.</span>
               </p>
@@ -462,55 +422,27 @@ export default function ServicesPage() {
             From your doorstep, anywhere.
           </h2>
           <p className="mt-2 text-zinc-500">
-            One call covers the whole map — from a city block to the other side
+            One call covers the whole map, from a city block to the other side
             of the country.
           </p>
         </div>
 
-        {/* Journey route — pins on a travelling dashed line */}
-        <div className="reveal relative mt-24 sm:mt-28">
-          {/* connecting line (behind the pins) */}
-          <div className="pointer-events-none absolute inset-x-[18%] top-4 hidden border-t-2 border-dashed border-zinc-200 sm:block" />
-          <div className="pointer-events-none absolute left-1/2 top-4 hidden h-px w-1/3 -translate-x-1/2 bg-linear-to-r from-transparent via-primary/60 to-transparent sm:block" />
-
-          <ol className="grid grid-cols-1 gap-16 sm:grid-cols-3 sm:gap-0">
-            {coverage.map((c, i) => (
-              <li
-                key={c.title}
-                className="group relative flex flex-col items-center text-center"
-              >
-                {/* pin marker */}
-                <span className="relative mb-7 flex h-8 w-8 items-center justify-center">
-                  <span className="absolute inline-flex h-8 w-8 rounded-full bg-primary/30 opacity-0 transition-opacity duration-300 group-hover:animate-ping group-hover:opacity-100" />
-                  <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white text-primary shadow-[0_6px_18px_-6px_rgba(11,180,181,0.9)] ring-1 ring-primary/20 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-primary group-hover:text-white group-hover:ring-primary">
-                    <MapPin />
-                  </span>
-                </span>
-
-                <span className="text-sm font-semibold tracking-[0.2em] text-primary">
-                  0{i + 1}
-                </span>
-                <h3
-                  className={`mt-2 text-3xl font-bold tracking-tight transition-colors duration-300 group-hover:text-primary ${INK}`}
-                >
-                  {c.title}
-                </h3>
-                <p className="mt-2 max-w-[15rem] text-zinc-500">{c.note}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+        {/* Journey route — pins draw in along a travelling line as you scroll */}
+        <CoverageRoute stops={coverage} />
       </section>
 
       {/* ========================= CTA ========================= */}
       <section className="mx-auto w-[90vw] px-6 pb-28 sm:px-10 lg:px-16">
-        <div className="reveal relative overflow-hidden rounded-[2rem] border border-primary/20 bg-linear-to-br from-primary/10 via-white to-white p-10 text-center shadow-premium sm:p-16">
-          <div className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl animate-aurora" />
-          <h2 className={`relative text-3xl font-bold tracking-tight sm:text-5xl ${INK}`}>
+        <div className="reveal relative overflow-hidden rounded-[2rem] bg-linear-to-br from-[#0b1220] via-[#132238] to-[#0b1220] p-10 text-center shadow-[0_40px_80px_-30px_rgba(0,0,0,0.55)] sm:p-16">
+          <div className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full bg-primary/20 blur-3xl animate-aurora" />
+          <div className="pointer-events-none absolute -left-16 -bottom-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+          <div className="pointer-events-none absolute inset-3 rounded-[1.7rem] border border-white/10 sm:inset-4" />
+
+          <h2 className="relative text-3xl font-bold tracking-tight text-white sm:text-5xl">
             Tell us where you&apos;re headed.
           </h2>
-          <p className="relative mx-auto mt-4 max-w-xl text-lg text-zinc-600">
-            We&apos;ll confirm in minutes — 24 hours a day. No hidden fees, ever.
+          <p className="relative mx-auto mt-4 max-w-xl text-lg text-white/60">
+            We&apos;ll confirm in minutes, 24 hours a day. No hidden fees, ever.
           </p>
           <div className="relative mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
@@ -524,7 +456,7 @@ export default function ServicesPage() {
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-zinc-300 bg-white px-8 py-4 text-sm font-semibold text-[#132238] transition-colors hover:border-primary hover:text-primary"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-8 py-4 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10"
             >
               Get a quote
             </Link>

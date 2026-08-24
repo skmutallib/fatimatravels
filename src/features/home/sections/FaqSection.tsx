@@ -8,7 +8,7 @@ type Faq = { q: string; a: string };
 const faqs: Faq[] = [
   {
     q: "Does every booking come with a driver?",
-    a: "Yes. Every Fatima car is chauffeur-driven — we do not offer self-drive rentals. A professional, verified driver is always included, so you can simply sit back and enjoy the ride.",
+    a: "Yes. Every Fatima car is chauffeur-driven, we do not offer self-drive rentals. A professional, verified driver is always included, so you can simply sit back and enjoy the ride.",
   },
   {
     q: "Are your drivers experienced and verified?",
@@ -24,7 +24,7 @@ const faqs: Faq[] = [
   },
   {
     q: "How do I book a car with a driver?",
-    a: "It's simple — pick your car, choose your date, pickup point and destination, and confirm your booking online or over WhatsApp. Your assigned chauffeur's details are shared before the trip.",
+    a: "It's simple, pick your car, choose your date, pickup point and destination, and confirm your booking online or over WhatsApp. Your assigned chauffeur's details are shared before the trip.",
   },
 ];
 

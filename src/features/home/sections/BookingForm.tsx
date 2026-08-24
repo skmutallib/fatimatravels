@@ -2,15 +2,32 @@
 
 import { useState } from "react";
 
-type TabKey = "daily" | "weekly" | "monthly" | "airport";
+import DatePicker from "@/components/DatePicker";
+import LocationAutocomplete from "@/components/LocationAutocomplete";
+import { siteConfig } from "@/lib/site";
+
+type TabKey = "main" | "sightseeing" | "pickup" | "drop";
 
 const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
   {
-    key: "daily",
-    label: "Daily",
+    key: "main",
+    label: "Main",
     icon: (
       <path
-        d="M8 2v3M16 2v3M3.5 8.5h17M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v12A1.5 1.5 0 0 1 19 20.5H5A1.5 1.5 0 0 1 3.5 19V7A1.5 1.5 0 0 1 5 5.5Z"
+        d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5ZM7 13h10M6.5 16.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM17.5 16.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+  },
+  {
+    key: "sightseeing",
+    label: "Hyderabad Sightseeing",
+    icon: (
+      <path
+        d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Zm0-8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
         stroke="currentColor"
         strokeWidth="1.6"
         strokeLinecap="round"
@@ -19,37 +36,24 @@ const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
     ),
   },
   {
-    key: "weekly",
-    label: "Weekly",
-    icon: (
-      <path
-        d="M5 16l1.2-3.6A2 2 0 0 1 8.1 11h7.8a2 2 0 0 1 1.9 1.4L19 16m-14 0h14m-14 0v2.5M19 16v2.5M7 16.5v.01M17 16.5v.01M6 11l1-3a2 2 0 0 1 1.9-1.4h6.2A2 2 0 0 1 17 8l1 3"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
-  },
-  {
-    key: "monthly",
-    label: "Monthly",
-    icon: (
-      <path
-        d="M8 2v3M16 2v3M3.5 8.5h17M5 5.5h14A1.5 1.5 0 0 1 20.5 7v12A1.5 1.5 0 0 1 19 20.5H5A1.5 1.5 0 0 1 3.5 19V7A1.5 1.5 0 0 1 5 5.5ZM7.5 12h2m5 0h2m-9 4h2m5 0h2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    ),
-  },
-  {
-    key: "airport",
+    key: "pickup",
     label: "Airport Pickup",
     icon: (
       <path
         d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+  },
+  {
+    key: "drop",
+    label: "Airport Drop",
+    icon: (
+      <path
+        d="M2 22l20-7-20-7 4 7-4 7Z"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinecap="round"
@@ -73,20 +77,6 @@ function LocationIcon() {
   );
 }
 
-function CalendarIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-zinc-400">
-      <path
-        d="M8 2v3M16 2v3M3.5 8.5h17M5 5.5h14A1.5 1.5 0 0 1 20.5 7v12A1.5 1.5 0 0 1 19 20.5H5A1.5 1.5 0 0 1 3.5 19V7A1.5 1.5 0 0 1 5 5.5Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function ChevronIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-zinc-400">
@@ -101,21 +91,59 @@ function ChevronIcon() {
   );
 }
 
-const timeOptions = [
-  "08:00 AM",
-  "09:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "01:00 PM",
-  "02:00 PM",
-  "03:00 PM",
-  "04:00 PM",
-  "05:00 PM",
-];
+const timeOptions = Array.from({ length: 24 }, (_, hour24) => {
+  const period = hour24 < 12 ? "AM" : "PM";
+  const hour12 = hour24 % 12 === 0 ? 12 : hour24 % 12;
+  return `${String(hour12).padStart(2, "0")}:00 ${period}`;
+});
 
 export default function BookingForm() {
-  const [activeTab, setActiveTab] = useState<TabKey>("daily");
+  const [activeTab, setActiveTab] = useState<TabKey>("main");
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [pickupDate, setPickupDate] = useState<Date | null>(() => new Date());
+  const [dropoffDate, setDropoffDate] = useState<Date | null>(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    return d;
+  });
+  const [pickupTime, setPickupTime] = useState("10:00 AM");
+
+  const handlePickupDateChange = (date: Date) => {
+    setPickupDate(date);
+    setDropoffDate((prev) => {
+      if (!prev || prev <= date) {
+        const next = new Date(date);
+        next.setDate(next.getDate() + 1);
+        return next;
+      }
+      return prev;
+    });
+  };
+
+  const formatDate = (d: Date | null) =>
+    d
+      ? d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })
+      : "";
+
+  const handleSubmit = () => {
+    const tripType = tabs.find((t) => t.key === activeTab)?.label ?? "Main";
+    const lines = [
+      "Hi Fatima Travels, I'd like to book a car.",
+      "",
+      `*Trip Type:* ${tripType}`,
+      pickupLocation && `*Pickup Location:* ${pickupLocation}`,
+      pickupDate && `*Pickup Date:* ${formatDate(pickupDate)}`,
+      pickupTime && `*Pickup Time:* ${pickupTime}`,
+      dropoffDate && `*Drop-off Date:* ${formatDate(dropoffDate)}`,
+    ].filter(Boolean);
+
+    const wa = siteConfig.whatsapp.replace(/\D/g, "");
+    window.open(
+      `https://wa.me/${wa}?text=${encodeURIComponent(lines.join("\n"))}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  };
 
   return (
     <section className="relative z-20 -mt-20 px-6 pb-16 sm:-mt-29">
@@ -151,16 +179,17 @@ export default function BookingForm() {
             <label className="mb-1.5 block text-sm font-medium text-zinc-500">
               Pick-up Location
             </label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Enter city or location"
-                className="w-full rounded-lg border border-zinc-200 px-4 py-3 pr-10 text-[15px] text-zinc-800 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-              <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                <LocationIcon />
-              </span>
-            </div>
+            <LocationAutocomplete
+              value={pickupLocation}
+              onChange={setPickupLocation}
+              placeholder="Enter city or location"
+              className="w-full rounded-lg border border-zinc-200 px-4 py-3 pr-10 text-[15px] text-zinc-800 placeholder:text-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              icon={
+                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                  <LocationIcon />
+                </span>
+              }
+            />
           </div>
 
           {/* Pick-up Date */}
@@ -168,16 +197,7 @@ export default function BookingForm() {
             <label className="mb-1.5 block text-sm font-medium text-zinc-500">
               Pick-up Date
             </label>
-            <div className="relative">
-              <input
-                type="text"
-                defaultValue="May 24, 2025"
-                className="w-full rounded-lg border border-zinc-200 px-4 py-3 pr-10 text-[15px] text-zinc-800 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-              <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                <CalendarIcon />
-              </span>
-            </div>
+            <DatePicker value={pickupDate} onChange={handlePickupDateChange} minDate={new Date()} />
           </div>
 
           {/* Pick-up Time */}
@@ -187,7 +207,8 @@ export default function BookingForm() {
             </label>
             <div className="relative">
               <select
-                defaultValue="10:00 AM"
+                value={pickupTime}
+                onChange={(e) => setPickupTime(e.target.value)}
                 className="w-full appearance-none rounded-lg border border-zinc-200 px-4 py-3 pr-10 text-[15px] text-zinc-800 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
               >
                 {timeOptions.map((t) => (
@@ -207,24 +228,20 @@ export default function BookingForm() {
             <label className="mb-1.5 block text-sm font-medium text-zinc-500">
               Drop-off Date
             </label>
-            <div className="relative">
-              <input
-                type="text"
-                defaultValue="May 25, 2025"
-                className="w-full rounded-lg border border-zinc-200 px-4 py-3 pr-10 text-[15px] text-zinc-800 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
-              <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                <CalendarIcon />
-              </span>
-            </div>
+            <DatePicker
+              value={dropoffDate}
+              onChange={setDropoffDate}
+              minDate={pickupDate ?? new Date()}
+            />
           </div>
 
           {/* Search button */}
           <button
             type="button"
+            onClick={handleSubmit}
             className="rounded-lg bg-primary px-8 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#0aa0a1]"
           >
-            Search Cars
+            Submit
           </button>
         </div>
       </div>
