@@ -1,30 +1,5 @@
+import Image from "next/image";
 import { Send } from "lucide-react";
-
-function CtaCar() {
-  return (
-    <svg viewBox="0 0 260 130" fill="none" className="h-auto w-full">
-      <ellipse cx="130" cy="116" rx="110" ry="9" fill="#000" opacity="0.12" />
-      {/* body */}
-      <path
-        d="M16 86c-4 0-7-3-7-7v-8c0-8 6-14 13-15l30-5 24-19c4-3 8-4 12-4h52c6 0 12 3 17 7l17 16 31 6c9 2 15 9 15 17v4c0 4-3 8-7 8H16Z"
-        fill="#eafafa"
-      />
-      {/* window band */}
-      <path
-        d="M90 34c3-2 6-4 10-4h48c5 0 9 2 13 6l14 15H74l16-17Z"
-        fill="#9fe6e7"
-      />
-      <path d="M124 32v19" stroke="#eafafa" strokeWidth="4" />
-      {/* accents */}
-      <path d="M18 74h224" stroke="#bdeef0" strokeWidth="2" />
-      {/* wheels */}
-      <circle cx="74" cy="94" r="19" fill="#122" />
-      <circle cx="74" cy="94" r="8" fill="#cbd5e1" />
-      <circle cx="192" cy="94" r="19" fill="#122" />
-      <circle cx="192" cy="94" r="8" fill="#cbd5e1" />
-    </svg>
-  );
-}
 
 function Field({
   label,
@@ -56,8 +31,14 @@ export default function CtaContact() {
         <div className="grid items-center gap-6 lg:grid-cols-2">
           {/* Left: car + copy */}
           <div className="flex items-center gap-4 p-8 sm:gap-6 lg:p-10">
-            <div className="w-28 shrink-0 sm:w-40 lg:w-48">
-              <CtaCar />
+            <div className="relative aspect-[450/281] w-28 shrink-0 sm:w-40 lg:w-48">
+              <Image
+                src="/innova-hycross.png"
+                alt="Toyota Innova Hycross"
+                fill
+                sizes="192px"
+                className="object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.25)]"
+              />
             </div>
             <div>
               <h2 className="text-3xl font-bold text-white sm:text-4xl">

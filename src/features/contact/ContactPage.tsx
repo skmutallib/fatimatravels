@@ -166,7 +166,7 @@ export default function ContactPage() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Ayesha Khan"
+                  placeholder="Your name"
                   className="mt-2.5 w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-[#132238] outline-none transition-colors placeholder:text-zinc-400 focus:border-primary"
                 />
               </div>

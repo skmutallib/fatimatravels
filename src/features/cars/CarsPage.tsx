@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 
@@ -17,7 +18,7 @@ import BookingModal from "@/features/cars/BookingModal";
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
-const sedans = ["Swift Dzire", "Toyota Etios", "Maruti Suzuki Brezza"];
+const sedans = ["Swift Dzire", "Toyota Etios", "Maruti Suzuki Brezza", "Maruti Suzuki Baleno"];
 
 const suvs = [
   "Innova",
@@ -26,6 +27,14 @@ const suvs = [
   "Toyota Fortuner",
   "Fortuner Legender",
 ];
+
+// Real photos for specific models — everything else falls back to the
+// illustrated VehicleArt.
+const carPhotos: Record<string, string> = {
+  "Maruti Suzuki Baleno": "/maruti-baleno.png",
+  Innova: "/innova-hycross-photo.webp",
+  "Innova Crysta": "/innova-crysta-photo.webp",
+};
 
 const ultraLuxury: { brand: string; line: string }[] = [
   { brand: "Rolls-Royce", line: "The absolute summit of chauffeured motoring." },
@@ -175,6 +184,7 @@ function ModelCard({
   const p = paint(index);
   const info = vehInfo[variant];
   const seats = variant === "bus" ? busSeatRanges[name] : info.seats;
+  const photo = carPhotos[name];
   return (
     <button
       type="button"
@@ -197,10 +207,20 @@ function ModelCard({
           </span>
         </div>
 
-        <div className="relative mt-3 flex h-28 items-center justify-center">
+        <div className="relative mt-3 flex h-32 items-center justify-center overflow-hidden">
           <span className="pointer-events-none absolute h-24 w-44 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-          <div className="relative flex h-full w-full items-center justify-center transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-105">
-            <VehicleArt variant={variant} color={p.body} roof={p.roof} />
+          <div className="relative flex h-full w-full items-center justify-center overflow-hidden transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-105">
+            {photo ? (
+              <Image
+                src={photo}
+                alt={name}
+                fill
+                sizes="320px"
+                className="scale-150 object-contain"
+              />
+            ) : (
+              <VehicleArt variant={variant} color={p.body} roof={p.roof} />
+            )}
           </div>
         </div>
 
@@ -375,7 +395,7 @@ export default function CarsPage() {
       </section>
 
       {/* ============================ SEDAN ============================ */}
-      <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
+      <section id="sedans" className="mx-auto w-[90vw] scroll-mt-28 px-6 py-16 sm:px-10 lg:px-16">
         <SectionHead
           eyebrow="Everyday"
           title="Sedans"
@@ -389,7 +409,7 @@ export default function CarsPage() {
       </section>
 
       {/* ============================= SUV ============================= */}
-      <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
+      <section id="suvs" className="mx-auto w-[90vw] scroll-mt-28 px-6 py-16 sm:px-10 lg:px-16">
         <SectionHead
           eyebrow="Space & command"
           title="SUVs"
@@ -403,7 +423,7 @@ export default function CarsPage() {
       </section>
 
       {/* ============================ LUXURY ============================ */}
-      <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
+      <section id="luxury" className="mx-auto w-[90vw] scroll-mt-28 px-6 py-16 sm:px-10 lg:px-16">
         <SectionHead
           eyebrow="Premium marques"
           title="Luxury Collection"

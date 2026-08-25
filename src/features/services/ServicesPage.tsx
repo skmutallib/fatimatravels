@@ -392,9 +392,8 @@ export default function ServicesPage() {
                 The Luxury Chauffeur experience.
               </h2>
               <p className="mt-3 text-base leading-relaxed text-zinc-300">
-                Uniformed, English-speaking drivers in a sanitised premium sedan,
+                Uniformed, professional drivers in a sanitised premium sedan,
                 for weddings, executives and guests who expect the finest.
-                <span className="text-white"> From ₹2,500 / day.</span>
               </p>
             </div>
 

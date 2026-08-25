@@ -17,9 +17,28 @@ export default function SmoothScroll({
   const content = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // On route change, jump to the top and recalc triggers for the new page
+  // On route change, jump to the top (or a #hash target) and recalc
+  // triggers for the new page. ScrollSmoother owns scroll position, so a
+  // plain browser hash-scroll on load doesn't work — it has to be driven
+  // through the smoother explicitly.
   useLayoutEffect(() => {
     const smoother = ScrollSmoother.get();
+    const hash = window.location.hash;
+    const target = hash ? document.querySelector(hash) : null;
+
+    if (target) {
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        if (smoother) {
+          const y = Math.max(0, smoother.offset(target, "top") - 96);
+          smoother.scrollTo(y, true);
+        } else {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+      return;
+    }
+
     if (smoother) smoother.scrollTop(0);
     else window.scrollTo(0, 0);
     ScrollTrigger.refresh();

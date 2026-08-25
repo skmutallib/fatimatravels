@@ -6,13 +6,14 @@ type Car = {
   transmission: string;
   color: string;
   roof: string;
+  anchor: string;
 };
 
 const cars: Car[] = [
-  { name: "Economy", seats: "4 Seats", transmission: "Manual", color: "#4fc3c4", roof: "#8fd8d9" },
-  { name: "Compact", seats: "5 Seats", transmission: "Manual", color: "#f97316", roof: "#fb9a52" },
-  { name: "SUV", seats: "5 Seats", transmission: "Automatic", color: "#cbd5e1", roof: "#e2e8f0" },
-  { name: "Luxury", seats: "5 Seats", transmission: "Automatic", color: "#1f2937", roof: "#374151" },
+  { name: "Economy", seats: "4 Seats", transmission: "Manual", color: "#4fc3c4", roof: "#8fd8d9", anchor: "sedans" },
+  { name: "Compact", seats: "5 Seats", transmission: "Manual", color: "#f97316", roof: "#fb9a52", anchor: "sedans" },
+  { name: "SUV", seats: "5 Seats", transmission: "Automatic", color: "#cbd5e1", roof: "#e2e8f0", anchor: "suvs" },
+  { name: "Luxury", seats: "5 Seats", transmission: "Automatic", color: "#1f2937", roof: "#374151", anchor: "luxury" },
 ];
 
 function CarIllustration({ color, roof }: { color: string; roof: string }) {
@@ -93,7 +94,7 @@ export default function FleetSection() {
         {cars.map((car) => (
           <Link
             key={car.name}
-            href="/cars"
+            href={`/cars#${car.anchor}`}
             className="hover-glow reveal group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200/70 bg-white p-3 shadow-premium sm:rounded-3xl sm:p-5"
           >
             <h3 className="text-center text-sm font-bold text-[#132238] sm:text-xl">

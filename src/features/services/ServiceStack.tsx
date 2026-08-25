@@ -11,12 +11,12 @@ function ArrowRight() {
     <svg
       viewBox="0 0 24 24"
       fill="none"
-      className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+      className="h-5 w-5 transition-transform duration-300 group-hover/btn:translate-x-1"
     >
       <path
         d="M5 12h14M13 6l6 6-6 6"
         stroke="currentColor"
-        strokeWidth="1.8"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -105,7 +105,7 @@ export default function ServiceStack({
   }, [services.length]);
 
   return (
-    <div ref={wrapRef} className="relative h-screen min-h-[640px] w-full bg-white">
+    <div ref={wrapRef} className="relative z-10 h-screen min-h-[640px] w-full overflow-hidden bg-white">
       {services.map((s, i) => (
         <div
           key={s.name}
@@ -119,38 +119,43 @@ export default function ServiceStack({
             href={book(s.name)}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover-glow group/btn relative flex w-full max-w-4xl flex-col overflow-hidden rounded-[2rem] border border-primary/15 bg-white p-8 shadow-premium sm:p-14"
+            className="hover-glow group/btn relative flex min-h-[420px] w-full flex-col justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-primary py-12 pl-8 pr-24 shadow-premium sm:min-h-[500px] sm:py-16 sm:pl-16 sm:pr-36"
           >
             <div className="flex items-center justify-between">
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 text-white">
                 {s.icon}
               </span>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/70">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
                 {s.tag}
               </span>
             </div>
 
-            <h3 className="mt-8 text-2xl font-bold tracking-tight text-[#132238] sm:text-4xl">
+            <h3 className="mt-8 text-3xl font-bold tracking-tight text-white sm:text-5xl">
               {s.name}
             </h3>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
+              {s.desc}
+            </p>
 
-            <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {s.points.map((point) => (
-                <li key={point} className="flex items-start gap-2.5">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <li key={point} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/15 text-white">
                     <CheckIcon />
                   </span>
-                  <span className="text-sm leading-snug text-[#132238]">{point}</span>
+                  <span className="text-sm leading-snug text-white/90 sm:text-base">
+                    {point}
+                  </span>
                 </li>
               ))}
             </ul>
 
-            <span className="mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold text-primary">
-              Book this
+            {/* Right-side circular CTA */}
+            <span className="absolute right-6 top-1/2 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white text-primary shadow-[0_16px_32px_-12px_rgba(0,0,0,0.4)] transition-transform duration-300 group-hover/btn:translate-x-1 sm:right-10 sm:h-20 sm:w-20">
               <ArrowRight />
             </span>
 
-            <span className="pointer-events-none absolute bottom-6 right-8 hidden text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/30 sm:block">
+            <span className="pointer-events-none absolute bottom-6 left-8 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40 sm:bottom-8 sm:left-16">
               {String(i + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}
             </span>
           </a>
