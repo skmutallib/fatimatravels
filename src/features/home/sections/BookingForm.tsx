@@ -11,15 +11,18 @@ type TabKey = "main" | "sightseeing" | "pickup" | "drop";
 const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
   {
     key: "main",
-    label: "Main",
+    label: "City Ride",
     icon: (
-      <path
-        d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5ZM7 13h10M6.5 16.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM17.5 16.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <>
+        <circle cx="6" cy="19" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="18" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+        <path
+          d="M8.5 19H16a3 3 0 0 0 0-6H8a3 3 0 0 1 0-6h7.5"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </>
     ),
   },
   {
@@ -126,7 +129,7 @@ export default function BookingForm() {
       : "";
 
   const handleSubmit = () => {
-    const tripType = tabs.find((t) => t.key === activeTab)?.label ?? "Main";
+    const tripType = tabs.find((t) => t.key === activeTab)?.label ?? "City Ride";
     const lines = [
       "Hi Fatima Travels, I'd like to book a car.",
       "",
@@ -149,7 +152,7 @@ export default function BookingForm() {
     <section className="relative z-20 -mt-20 px-6 pb-16 sm:-mt-29">
       <div className="mx-auto max-w-7xl rounded-2xl border border-zinc-100 bg-white p-5 shadow-premium sm:p-7">
         {/* Tabs */}
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-2 border-b border-zinc-100 pb-1">
+        <div className="scrollbar-none flex items-center gap-x-8 overflow-x-auto border-b border-zinc-100 pb-1">
           {tabs.map((tab) => {
             const active = tab.key === activeTab;
             return (
@@ -157,7 +160,7 @@ export default function BookingForm() {
                 key={tab.key}
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
-                className={`-mb-px flex items-center gap-2 border-b-2 pb-3 text-[15px] font-semibold transition-colors ${
+                className={`-mb-px flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 pb-3 text-[15px] font-semibold transition-colors ${
                   active
                     ? "border-primary text-primary"
                     : "border-transparent text-zinc-500 hover:text-zinc-800"

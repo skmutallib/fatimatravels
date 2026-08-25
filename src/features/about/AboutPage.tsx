@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { BadgeIndianRupee, Clock, ShieldCheck, Sparkles } from "lucide-react";
@@ -5,6 +6,16 @@ import { BadgeIndianRupee, Clock, ShieldCheck, Sparkles } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 import { luxuryBrands, paint, VehicleArt } from "@/features/cars/shared";
 import ValuesGrid from "@/features/about/ValuesGrid";
+
+const brandPhotos: Record<string, string> = {
+  "Mercedes-Benz": "/mercedes-s-class.png",
+  BMW: "/bmw-7-series.png",
+  Audi: "/audi-a8.png",
+  Jaguar: "/jaguar-xf.png",
+  Volvo: "/volvo-s90.png",
+  Lexus: "/lexus-lx600.png",
+  "Range Rover": "/range-rover.png",
+};
 
 /* ------------------------------------------------------------------ */
 /*  Booking helper — opens WhatsApp with a pre-filled enquiry          */
@@ -266,29 +277,37 @@ export default function AboutPage() {
             </a>
           </div>
 
-          {/* RIGHT — milestone cards */}
-          <ol className="reveal space-y-5">
-            {milestones.map((m, i) => (
-              <li
-                key={m.title}
-                className="hover-glow group relative overflow-hidden rounded-2xl border border-zinc-200/70 bg-white p-6 pl-8"
-              >
-                <span className="absolute inset-y-0 left-0 w-1 bg-primary/20 transition-colors duration-300 group-hover:bg-primary" />
-                <span className="pointer-events-none absolute -right-2 -top-5 text-7xl font-extrabold text-zinc-50 transition-colors duration-300 group-hover:text-primary/5">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+          {/* RIGHT — milestone timeline */}
+          <ol className="reveal relative space-y-8">
+            <div className="pointer-events-none absolute left-5 top-5 bottom-5 w-px bg-linear-to-b from-primary/50 via-zinc-200 to-transparent" />
+            {milestones.map((m, i) => {
+              const isLast = i === milestones.length - 1;
+              return (
+                <li key={m.title} className="group relative flex gap-5">
+                  <span
+                    className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold transition-colors duration-300 ${
+                      isLast
+                        ? "border-primary bg-primary text-white"
+                        : "border-primary/30 bg-white text-primary group-hover:border-primary"
+                    }`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
 
-                <span className="relative text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                  {m.year}
-                </span>
-                <h3 className={`relative mt-1.5 text-lg font-bold ${INK}`}>
-                  {m.title}
-                </h3>
-                <p className="relative mt-1.5 max-w-md text-sm leading-relaxed text-zinc-500">
-                  {m.desc}
-                </p>
-              </li>
-            ))}
+                  <div className="hover-glow flex-1 rounded-2xl border border-zinc-200/70 bg-white p-6 transition-transform duration-300 group-hover:-translate-y-0.5">
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                      {m.year}
+                    </span>
+                    <h3 className={`mt-1.5 text-lg font-bold ${INK}`}>
+                      {m.title}
+                    </h3>
+                    <p className="mt-1.5 max-w-md text-sm leading-relaxed text-zinc-500">
+                      {m.desc}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </section>
@@ -333,6 +352,7 @@ export default function AboutPage() {
         <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
           {marques.map((m, i) => {
             const p = paint(i);
+            const photo = brandPhotos[m.brand];
             return (
               <div
                 key={m.brand}
@@ -341,7 +361,11 @@ export default function AboutPage() {
                 <div className="relative flex h-16 w-full items-center justify-center overflow-hidden">
                   <span className="pointer-events-none absolute h-20 w-20 rounded-full bg-primary/15 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="relative h-14 w-24 transition-transform duration-500 ease-out group-hover:scale-110">
-                    <VehicleArt variant={m.variant} color={p.body} roof={p.roof} />
+                    {photo ? (
+                      <Image src={photo} alt={m.brand} fill sizes="140px" className="scale-150 object-contain" />
+                    ) : (
+                      <VehicleArt variant={m.variant} color={p.body} roof={p.roof} />
+                    )}
                   </div>
                 </div>
                 <h3 className={`mt-5 text-center text-base font-bold ${INK}`}>
@@ -408,19 +432,19 @@ export default function AboutPage() {
             25 years, one promise, a driver you can trust, a car you can
             rely on. Every single time.
           </p>
-          <div className="relative mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="relative mx-auto mt-9 flex max-w-md items-center justify-center gap-3 sm:max-w-none sm:gap-4">
             <a
               href={book("a trip")}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-8 py-4 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(11,180,181,1)] transition-transform duration-300 hover:-translate-y-0.5"
+              className="group inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-4 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(11,180,181,1)] transition-transform duration-300 hover:-translate-y-0.5 sm:flex-initial sm:px-8"
             >
               Chat on WhatsApp
               <ArrowRight />
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-zinc-300 bg-white px-8 py-4 text-sm font-semibold text-[#132238] transition-colors hover:border-primary hover:text-primary"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-zinc-300 bg-white px-4 py-4 text-sm font-semibold text-[#132238] transition-colors hover:border-primary hover:text-primary sm:flex-initial sm:px-8"
             >
               Get a quote
             </Link>

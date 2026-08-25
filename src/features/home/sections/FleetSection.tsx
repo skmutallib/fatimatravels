@@ -1,46 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
 
 type Car = {
   name: string;
   seats: string;
   transmission: string;
-  color: string;
-  roof: string;
   anchor: string;
+  photo: string;
 };
 
 const cars: Car[] = [
-  { name: "Economy", seats: "4 Seats", transmission: "Manual", color: "#4fc3c4", roof: "#8fd8d9", anchor: "sedans" },
-  { name: "Compact", seats: "5 Seats", transmission: "Manual", color: "#f97316", roof: "#fb9a52", anchor: "sedans" },
-  { name: "SUV", seats: "5 Seats", transmission: "Automatic", color: "#cbd5e1", roof: "#e2e8f0", anchor: "suvs" },
-  { name: "Luxury", seats: "5 Seats", transmission: "Automatic", color: "#1f2937", roof: "#374151", anchor: "luxury" },
+  { name: "Economy", seats: "4 Seats", transmission: "Manual", anchor: "sedans", photo: "/baleno.png" },
+  { name: "Compact", seats: "5 Seats", transmission: "Manual", anchor: "sedans", photo: "/swift-dzire.png" },
+  { name: "SUV", seats: "5 Seats", transmission: "Automatic", anchor: "suvs", photo: "/toyota-fortuner.png" },
+  { name: "Luxury", seats: "5 Seats", transmission: "Automatic", anchor: "luxury", photo: "/bmw-7-series.png" },
 ];
-
-function CarIllustration({ color, roof }: { color: string; roof: string }) {
-  return (
-    <svg viewBox="0 0 220 110" fill="none" className="h-full w-full">
-      {/* shadow */}
-      <ellipse cx="110" cy="97" rx="82" ry="7" fill="#000" opacity="0.08" />
-      {/* body */}
-      <path
-        d="M14 74c-3 0-5-2-5-5v-6c0-6 4-11 10-12l24-4 20-16c3-2 6-3 10-3h44c5 0 10 2 14 6l14 13 26 5c7 1 12 7 12 14v3c0 3-2 5-5 5H14Z"
-        fill={color}
-      />
-      {/* roof / window band */}
-      <path
-        d="M76 30c2-2 5-3 8-3h40c4 0 8 2 11 5l11 11H62l14-13Z"
-        fill={roof}
-      />
-      {/* window divider */}
-      <path d="M104 27v16" stroke={color} strokeWidth="3" />
-      {/* wheels */}
-      <circle cx="62" cy="80" r="16" fill="#1f2937" />
-      <circle cx="62" cy="80" r="7" fill="#9ca3af" />
-      <circle cx="162" cy="80" r="16" fill="#1f2937" />
-      <circle cx="162" cy="80" r="7" fill="#9ca3af" />
-    </svg>
-  );
-}
 
 function SeatIcon() {
   return (
@@ -90,21 +64,27 @@ export default function FleetSection() {
       </div>
 
       {/* Cards */}
-      <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-8 lg:grid-cols-4 xl:grid-cols-4">
+      <div className="scrollbar-none -mx-6 mt-12 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-8 pt-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-4 xl:grid-cols-4">
         {cars.map((car) => (
           <Link
             key={car.name}
             href={`/cars#${car.anchor}`}
-            className="hover-glow reveal group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200/70 bg-white p-3 shadow-premium sm:rounded-3xl sm:p-5"
+            className="hover-glow reveal group relative flex w-[80vw] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-zinc-200/70 bg-white p-3 shadow-premium sm:w-auto sm:shrink sm:rounded-3xl sm:p-5"
           >
             <h3 className="text-center text-sm font-bold text-[#132238] sm:text-xl">
               {car.name}
             </h3>
 
-            <div className="relative my-3 flex h-16 items-center justify-center overflow-hidden rounded-xl bg-linear-to-b from-zinc-50 to-zinc-100/60 px-1 sm:my-5 sm:h-24 sm:rounded-2xl sm:px-2">
+            <div className="relative my-3 flex h-16 items-center justify-center overflow-hidden rounded-xl bg-white px-1 sm:my-5 sm:h-24 sm:rounded-2xl sm:px-2">
               <span className="pointer-events-none absolute h-28 w-28 rounded-full bg-primary/15 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative flex h-full w-full items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
-                <CarIllustration color={car.color} roof={car.roof} />
+              <div className="relative flex h-full w-full items-center justify-center overflow-hidden transition-transform duration-500 ease-out group-hover:scale-110">
+                <Image
+                  src={car.photo}
+                  alt={car.name}
+                  fill
+                  sizes="200px"
+                  className="scale-150 object-contain"
+                />
               </div>
             </div>
 

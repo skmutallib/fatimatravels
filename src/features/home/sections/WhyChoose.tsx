@@ -1,16 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { Check } from "lucide-react";
-
-import { VehicleArt } from "@/features/cars/shared";
+import { CalendarCheck, Check, Headphones, Receipt, ShieldCheck, Undo2 } from "lucide-react";
 
 const reasons = [
-  "No Hidden Charges",
-  "Flexible Rental Options",
-  "Well-Maintained Cars",
-  "24/7 Customer Support",
-  "Easy Cancellation",
+  { label: "No Hidden Charges", icon: Receipt },
+  { label: "Flexible Rental Options", icon: CalendarCheck },
+  { label: "Well-Maintained Cars", icon: ShieldCheck },
+  { label: "24/7 Customer Support", icon: Headphones },
+  { label: "Easy Cancellation", icon: Undo2 },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -91,7 +89,7 @@ type Pkg = {
   desc: string;
   accent: string;
   icon: ReactNode;
-  car: { body: string; roof: string };
+  photo: string;
   featured?: boolean;
 };
 
@@ -102,7 +100,7 @@ const packages: Pkg[] = [
     desc: "Monthly billing, dedicated cars, executive chauffeurs.",
     accent: "#132238",
     icon: <BriefcaseIcon />,
-    car: { body: "#1e293b", roof: "#0f172a" },
+    photo: "/innova-crysta.png",
   },
   {
     name: "Wedding Car Rental",
@@ -110,7 +108,7 @@ const packages: Pkg[] = [
     desc: "Decorated luxury sedans, SUVs & convertibles.",
     accent: "#b8892f",
     icon: <RingsIcon />,
-    car: { body: "#f2ead9", roof: "#d9c48f" },
+    photo: "/rolls-royce-phantom.png",
     featured: true,
   },
   {
@@ -119,7 +117,7 @@ const packages: Pkg[] = [
     desc: "Secunderabad · Nampally · Kacheguda, on the dot.",
     accent: "#0bb4b5",
     icon: <TrainIcon />,
-    car: { body: "#1e3a5f", roof: "#14273f" },
+    photo: "/swift-dzire.png",
   },
 ];
 
@@ -150,28 +148,31 @@ export default function WhyChoose() {
                 complete transparency, on every trip, every time.
               </p>
 
-              <ul className="mt-9 space-y-3">
-                {reasons.map((reason, i) => (
-                  <li
-                    key={reason}
-                    className="group flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 px-4 py-3.5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/95 hover:shadow-[0_14px_30px_-18px_rgba(0,0,0,0.35)]"
-                  >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/15 text-white transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
-                      <Check className="h-4 w-4" strokeWidth={3} />
-                    </span>
-                    <span className="text-[15px] font-medium text-white transition-colors duration-300 group-hover:text-[#132238]">
-                      {reason}
-                    </span>
-                    <span className="ml-auto font-mono text-xs text-white/40 transition-colors duration-300 group-hover:text-zinc-300">
-                      0{i + 1}
-                    </span>
-                  </li>
-                ))}
+              <ul className="mt-9 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {reasons.map((reason, i) => {
+                  const Icon = reason.icon;
+                  const isLast = i === reasons.length - 1;
+                  return (
+                    <li
+                      key={reason.label}
+                      className={`group flex items-center gap-3.5 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white hover:shadow-[0_14px_30px_-18px_rgba(0,0,0,0.35)] ${
+                        isLast ? "sm:col-span-2" : ""
+                      }`}
+                    >
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15 text-white transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                        <Icon className="h-5 w-5" strokeWidth={1.75} />
+                      </span>
+                      <span className="text-[15px] font-medium text-white transition-colors duration-300 group-hover:text-[#132238]">
+                        {reason.label}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
             {/* Image + floating stat badges */}
-            <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+            <div className="relative mx-auto hidden aspect-square w-full max-w-[420px] lg:block">
               <div className="absolute inset-6 rounded-full bg-white/20 blur-3xl" />
               <div className="relative h-full w-full">
                 <Image
@@ -201,7 +202,7 @@ export default function WhyChoose() {
                   <Check className="h-4 w-4" strokeWidth={3} />
                 </span>
                 <div className="leading-tight">
-                  <div className="text-sm font-bold text-[#132238]">3,059+</div>
+                  <div className="text-sm font-bold text-[#132238]">18,546+</div>
                   <div className="text-[11px] text-zinc-500">Trips Completed</div>
                 </div>
               </div>
@@ -262,16 +263,22 @@ export default function WhyChoose() {
                   {pkg.name}
                 </h3>
 
-                <div className="relative my-6 flex h-20 items-center justify-center">
+                <div className="relative my-6 flex h-28 items-center justify-center">
                   <div
                     className="absolute h-5 w-28 rounded-full blur-lg"
                     style={{ backgroundColor: pkg.accent, opacity: 0.18 }}
                   />
                   <div
-                    className="relative h-16 w-32 animate-float-slow"
+                    className="relative h-full w-full animate-float-slow"
                     style={{ animationDelay: `${i * 0.4}s` }}
                   >
-                    <VehicleArt variant="sedan" color={pkg.car.body} roof={pkg.car.roof} />
+                    <Image
+                      src={pkg.photo}
+                      alt={pkg.name}
+                      fill
+                      sizes="220px"
+                      className="object-contain"
+                    />
                   </div>
                 </div>
 

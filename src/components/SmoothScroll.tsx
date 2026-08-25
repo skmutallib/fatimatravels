@@ -16,11 +16,37 @@ export default function SmoothScroll({
   const wrapper = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const scrollPositions = useRef<Record<string, number>>({});
+  const isBackForward = useRef(false);
+
+  // Track browser back/forward navigation so the route-change effect below
+  // can restore the scroll position instead of always jumping to the top.
+  // Scroll position is read from window.scrollY rather than ScrollSmoother's
+  // onUpdate callback — with normalizeScroll enabled, window.scrollY tracks
+  // the smoothed position in sync, but onUpdate does not reliably fire.
+  useLayoutEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    const onPopState = () => {
+      isBackForward.current = true;
+    };
+    const onScroll = () => {
+      scrollPositions.current[window.location.pathname] = window.scrollY;
+    };
+    window.addEventListener("popstate", onPopState);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   // On route change, jump to the top (or a #hash target) and recalc
   // triggers for the new page. ScrollSmoother owns scroll position, so a
   // plain browser hash-scroll on load doesn't work — it has to be driven
-  // through the smoother explicitly.
+  // through the smoother explicitly. Back/forward navigation restores the
+  // scroll position the user was previously at on that page instead.
   useLayoutEffect(() => {
     const smoother = ScrollSmoother.get();
     const hash = window.location.hash;
@@ -36,12 +62,29 @@ export default function SmoothScroll({
           target.scrollIntoView({ behavior: "smooth" });
         }
       });
+      isBackForward.current = false;
       return;
     }
 
-    if (smoother) smoother.scrollTop(0);
-    else window.scrollTo(0, 0);
-    ScrollTrigger.refresh();
+    const savedY = scrollPositions.current[pathname];
+    if (isBackForward.current && savedY !== undefined) {
+      const restore = () => {
+        ScrollTrigger.refresh();
+        if (smoother) smoother.scrollTop(savedY);
+        else window.scrollTo(0, savedY);
+      };
+      // Images and lazy content settle after the first paint, which can
+      // shrink the scrollable height and clamp the restored position — so
+      // retry a couple of times as layout finishes.
+      requestAnimationFrame(restore);
+      setTimeout(restore, 150);
+      setTimeout(restore, 500);
+    } else {
+      if (smoother) smoother.scrollTop(0);
+      else window.scrollTo(0, 0);
+      ScrollTrigger.refresh();
+    }
+    isBackForward.current = false;
   }, [pathname]);
 
   useLayoutEffect(() => {

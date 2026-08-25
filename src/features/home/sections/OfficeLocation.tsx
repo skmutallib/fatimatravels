@@ -27,18 +27,18 @@ export default function OfficeLocation() {
       </div>
 
       {/* Map + overlay cards */}
-      <div className="reveal relative mt-12 overflow-hidden rounded-3xl shadow-premium">
+      <div className="reveal mt-12 overflow-hidden rounded-3xl shadow-premium sm:relative">
         {/* Live map background */}
         <iframe
           title="Fatima Tours and Travels location"
           src={MAP_EMBED}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="absolute inset-0 h-full w-full border-0"
+          className="h-56 w-full border-0 sm:absolute sm:inset-0 sm:h-full"
         />
 
         {/* Cards */}
-        <div className="relative z-10 flex min-h-[440px] flex-col justify-end gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:p-8">
+        <div className="relative z-10 flex flex-col justify-end gap-5 bg-white p-6 sm:min-h-[440px] sm:flex-row sm:items-end sm:justify-between sm:bg-transparent sm:p-8">
           {/* Left: phone + hours */}
           <div className="flex flex-col gap-4 sm:w-[300px]">
             <div className="flex items-center gap-4 rounded-2xl bg-primary p-4 text-white shadow-premium">

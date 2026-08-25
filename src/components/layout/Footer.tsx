@@ -1,109 +1,85 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import { MapPin, MessageCircle, Phone } from "lucide-react";
+import { MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
 import { siteConfig } from "@/lib/site";
 
-const SOCIAL_ICON = "h-4 w-4 fill-current";
-
-function FacebookIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className={SOCIAL_ICON} aria-hidden>
-      <path d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.3-1.3 1.5-1.3h1.3V5.8c-.7-.1-1.4-.1-2.1-.1-2.1 0-3.6 1.3-3.6 3.7v2H8.3V14h2.3v7h2.9Z" />
-    </svg>
-  );
-}
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
-      <rect x="3.5" y="3.5" width="17" height="17" rx="5" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="12" cy="12" r="3.7" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="17" cy="7" r="1.1" fill="currentColor" />
-    </svg>
-  );
-}
-
-function XIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className={SOCIAL_ICON} aria-hidden>
-      <path d="M4 4h3.7l4.4 6 5-6H19l-6.4 7.6L19.6 20h-3.7l-4.7-6.4L5.8 20H4l6.7-8L4 4Z" />
-    </svg>
-  );
-}
-
-function LinkedinIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className={SOCIAL_ICON} aria-hidden>
-      <path d="M6.94 8.5V19H4V8.5h2.94ZM5.47 3.9a1.71 1.71 0 1 1 0 3.42 1.71 1.71 0 0 1 0-3.42ZM20 19h-2.94v-5.6c0-1.34-.48-2.25-1.68-2.25-.92 0-1.46.62-1.7 1.22-.09.21-.11.51-.11.81V19H10.6s.04-9.32 0-10.5h2.94v1.49c.39-.6 1.09-1.46 2.66-1.46 1.94 0 3.4 1.27 3.4 4V19Z" />
-    </svg>
-  );
-}
-
-const quickLinks = [
+const company = [
   { label: "Home", href: "/" },
-  { label: "Cars", href: "/cars" },
+  { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "How It Works", href: "/#how-it-works" },
   { label: "Contact", href: "/contact" },
+  { label: "FAQs", href: "/#faq" },
 ];
 
-const topCities = ["Hyderabad", "Bangalore", "Chennai", "Mumbai", "Pune"];
-
-const support = [
-  "Help Center",
-  "FAQs",
-  "Booking Terms",
-  "Privacy Policy",
-  "Terms & Conditions",
+const fleet = [
+  { label: "All Cars", href: "/cars" },
+  { label: "Sedans", href: "/cars#sedans" },
+  { label: "SUVs", href: "/cars#suvs" },
+  { label: "Luxury Collection", href: "/cars#luxury" },
 ];
 
-const socials = [
-  { label: "Facebook", Icon: FacebookIcon, href: "#" },
-  { label: "Instagram", Icon: InstagramIcon, href: "#" },
-  { label: "Twitter", Icon: XIcon, href: "#" },
-  { label: "LinkedIn", Icon: LinkedinIcon, href: "#" },
-];
+const wa = siteConfig.whatsapp.replace(/\D/g, "");
+const telHref = `tel:${siteConfig.phone.replace(/\s+/g, "")}`;
+const whatsappHref = `https://wa.me/${wa}`;
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = `Hi Fatima Travels, please add me to your updates list.${
+      email ? ` Email: ${email}` : ""
+    }`;
+    window.open(
+      `https://wa.me/${wa}?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  };
+
   return (
     <footer className="bg-primary text-white">
       <div className="mx-auto w-[90vw] px-6 py-14 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-5">
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-1">
-            <Image
-              src={siteConfig.logo}
-              alt={siteConfig.name}
-              width={180}
-              height={100}
-              className="h-12 w-auto brightness-0 invert"
-            />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/80">
-              {siteConfig.tagline}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 text-center lg:grid-cols-[1.3fr_0.8fr_0.8fr_0.9fr] lg:gap-12 lg:text-left">
+          {/* Brand + newsletter */}
+          <div className="col-span-2 flex flex-col items-center lg:col-span-1 lg:items-start">
+            <span className="text-3xl font-black italic leading-none tracking-tight text-white">
+              Fatima
+            </span>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/70">
+              Join our updates list to stay up to date on offers and new
+              routes.
             </p>
-            <div className="mt-5 flex gap-3">
-              {socials.map((s) => {
-                const Icon = s.Icon;
-                return (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    aria-label={s.label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-                  >
-                    <Icon />
-                  </a>
-                );
-              })}
-            </div>
+            <form onSubmit={handleSubscribe} className="mt-4 flex w-full max-w-sm items-center gap-2">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full min-w-0 rounded-lg border border-white/20 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder:text-white/50 focus:border-white focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-white/90"
+              >
+                Subscribe
+                <Send className="h-3.5 w-3.5" />
+              </button>
+            </form>
+            <p className="mt-2.5 max-w-sm text-xs leading-relaxed text-white/50">
+              We&apos;ll reach out on WhatsApp using the details you share.
+            </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Company */}
           <div>
-            <h4 className="text-sm font-semibold tracking-wide">Quick Links</h4>
-            <ul className="mt-4 space-y-2.5 text-sm text-white/80">
-              {quickLinks.map((l) => (
+            <h4 className="text-sm font-semibold tracking-wide">Company</h4>
+            <ul className="mt-4 space-y-2.5 text-sm text-white/70">
+              {company.map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} className="transition-colors hover:text-white">
                     {l.label}
@@ -113,49 +89,54 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Top Cities */}
+          {/* Fleet */}
           <div>
-            <h4 className="text-sm font-semibold tracking-wide">Top Cities</h4>
-            <ul className="mt-4 space-y-2.5 text-sm text-white/80">
-              {topCities.map((c) => (
-                <li key={c}>
-                  <span className="cursor-pointer transition-colors hover:text-white">
-                    {c}
-                  </span>
+            <h4 className="text-sm font-semibold tracking-wide">Fleet</h4>
+            <ul className="mt-4 space-y-2.5 text-sm text-white/70">
+              {fleet.map((l) => (
+                <li key={l.label}>
+                  <Link href={l.href} className="transition-colors hover:text-white">
+                    {l.label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Support */}
-          <div>
-            <h4 className="text-sm font-semibold tracking-wide">Support</h4>
-            <ul className="mt-4 space-y-2.5 text-sm text-white/80">
-              {support.map((s) => (
-                <li key={s}>
-                  <span className="cursor-pointer transition-colors hover:text-white">
-                    {s}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Us */}
-          <div>
-            <h4 className="text-sm font-semibold tracking-wide">Contact Us</h4>
-            <ul className="mt-4 space-y-3.5 text-sm text-white/80">
-              <li className="flex items-center gap-2.5">
-                <Phone className="h-4 w-4 shrink-0" />
-                <span>{siteConfig.phone}</span>
+          {/* Get in touch */}
+          <div className="col-span-2 lg:col-span-1">
+            <h4 className="text-sm font-semibold tracking-wide">Get in Touch</h4>
+            <ul className="mt-4 space-y-3 text-sm text-white/70">
+              <li>
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2.5 transition-colors hover:text-white lg:justify-start"
+                >
+                  <MessageCircle className="h-4 w-4 shrink-0" />
+                  WhatsApp
+                </a>
               </li>
-              <li className="flex items-center gap-2.5">
-                <MessageCircle className="h-4 w-4 shrink-0" />
-                <span>{siteConfig.whatsapp} (WhatsApp)</span>
+              <li>
+                <a
+                  href={telHref}
+                  className="flex items-center justify-center gap-2.5 transition-colors hover:text-white lg:justify-start"
+                >
+                  <Phone className="h-4 w-4 shrink-0" />
+                  {siteConfig.phone}
+                </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>{siteConfig.address}</span>
+              <li>
+                <a
+                  href={siteConfig.directionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start justify-center gap-2.5 transition-colors hover:text-white lg:justify-start"
+                >
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{siteConfig.address}</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -163,9 +144,19 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/20">
-        <div className="mx-auto w-[90vw] px-6 py-5 text-center text-sm text-white/80 sm:px-10 lg:px-16">
-          © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+      <div className="border-t border-white/15">
+        <div className="mx-auto flex w-[90vw] flex-col items-center justify-between gap-3 px-6 py-5 text-sm text-white/60 sm:flex-row sm:px-10 lg:px-16">
+          <span>
+            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+          </span>
+          <a
+            href="https://www.skmutallib.work"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-white"
+          >
+            Developed by skmutallib
+          </a>
         </div>
       </div>
     </footer>

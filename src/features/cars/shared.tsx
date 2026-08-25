@@ -176,9 +176,9 @@ export const luxuryBrands: Marque[] = [
   },
   { brand: "Audi", tag: "Germany", variant: "sedan", models: ["A4", "A6", "A8", "Q3", "Q5", "Q7", "Q8"] },
   { brand: "Jaguar", tag: "Britain", variant: "sedan", models: ["XF", "XJL"] },
-  { brand: "Volvo", tag: "Sweden", variant: "suv", models: ["All Sedans", "All SUVs"] },
-  { brand: "Lexus", tag: "Japan", variant: "suv", models: ["All Sedans", "All SUVs"] },
-  { brand: "Range Rover", tag: "Britain", variant: "suv", models: ["All Models", "SUV & Sedan"] },
+  { brand: "Volvo", tag: "Sweden", variant: "suv", models: ["S90", "XC90"] },
+  { brand: "Lexus", tag: "Japan", variant: "suv", models: ["ES 300h", "LX 600"] },
+  { brand: "Range Rover", tag: "Britain", variant: "suv", models: ["Range Rover", "SUV & Sedan"] },
 ];
 
 export const getMarque = (slug: string) =>

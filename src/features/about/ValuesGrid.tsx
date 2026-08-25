@@ -22,32 +22,32 @@ function ValueCard({ v, i }: { v: Value; i: number }) {
     <div
       ref={cardRef}
       onMouseMove={handleMove}
-      className="value-card hover-glow group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-zinc-200/70 bg-white p-8"
+      className="value-card hover-glow group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-white/10 bg-primary p-8"
     >
       {/* cursor-follow spotlight */}
       <span
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), rgba(11,180,181,0.12), transparent 70%)",
+            "radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.16), transparent 70%)",
         }}
       />
 
       {/* giant watermark numeral */}
-      <span className="pointer-events-none absolute -right-3 -top-7 select-none text-[6.5rem] font-black leading-none text-zinc-50 transition-colors duration-500 group-hover:text-primary/5">
+      <span className="pointer-events-none absolute -right-3 -top-7 select-none text-[6.5rem] font-black leading-none text-white/10 transition-colors duration-500 group-hover:text-white/15">
         {String(i + 1).padStart(2, "0")}
       </span>
 
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-primary/15 to-primary/5 text-primary transition-all duration-500 group-hover:scale-110 group-hover:from-primary group-hover:to-[#0a9fa0] group-hover:text-white group-hover:shadow-[0_14px_28px_-10px_rgba(11,180,181,0.7)]">
+      <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-primary shadow-[0_14px_28px_-14px_rgba(0,0,0,0.35)] transition-all duration-500 group-hover:scale-110">
         {v.icon}
       </span>
 
-      <h3 className="relative mt-7 text-lg font-bold text-[#132238]">{v.name}</h3>
-      <p className="relative mt-2 flex-1 text-sm leading-relaxed text-zinc-500">
+      <h3 className="relative mt-7 text-lg font-bold text-white">{v.name}</h3>
+      <p className="relative mt-2 flex-1 text-sm leading-relaxed text-white/70">
         {v.desc}
       </p>
 
-      <span className="relative mt-6 h-px w-full origin-left scale-x-0 bg-linear-to-r from-primary via-primary/60 to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100" />
+      <span className="relative mt-6 h-px w-full origin-left scale-x-0 bg-linear-to-r from-white via-white/60 to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100" />
     </div>
   );
 }

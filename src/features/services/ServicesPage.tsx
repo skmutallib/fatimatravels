@@ -443,19 +443,19 @@ export default function ServicesPage() {
           <p className="relative mx-auto mt-4 max-w-xl text-lg text-white/60">
             We&apos;ll confirm in minutes, 24 hours a day. No hidden fees, ever.
           </p>
-          <div className="relative mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="relative mx-auto mt-9 flex max-w-md items-center justify-center gap-3 sm:max-w-none sm:gap-4">
             <a
               href={book("a trip")}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-8 py-4 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(11,180,181,1)] transition-transform duration-300 hover:-translate-y-0.5"
+              className="group inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-4 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(11,180,181,1)] transition-transform duration-300 hover:-translate-y-0.5 sm:flex-initial sm:px-8"
             >
               Chat on WhatsApp
               <ArrowRight />
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-8 py-4 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-4 py-4 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10 sm:flex-initial sm:px-8"
             >
               Get a quote
             </Link>

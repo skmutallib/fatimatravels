@@ -237,14 +237,14 @@ export default function ContactPage() {
           </form>
 
           {/* RIGHT — contact info */}
-          <div className="reveal flex flex-col gap-5">
+          <div className="reveal flex h-full flex-col gap-5">
             {infoCards.map((c) => (
               <a
                 key={c.label}
                 href={c.href}
                 target={c.external ? "_blank" : undefined}
                 rel={c.external ? "noopener noreferrer" : undefined}
-                className="hover-glow group relative flex items-start gap-4 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-premium"
+                className="hover-glow group relative flex flex-1 items-center gap-4 overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-premium"
               >
                 <span className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl transition-transform duration-500 group-hover:scale-110">
                   <span className="absolute inset-0 bg-primary/10 transition-opacity duration-500 group-hover:opacity-0" />

@@ -20,7 +20,7 @@ const iconProps = { className: "h-5 w-5", strokeWidth: 1.9 };
 const stats: Stat[] = [
   { target: 4.9, decimals: 1, suffix: "/5", label: "Google Rating", icon: <Star {...iconProps} /> },
   { target: 55, decimals: 0, suffix: "+", label: "Verified Reviews", icon: <MessageCircleHeart {...iconProps} /> },
-  { target: 3059, decimals: 0, suffix: "+", label: "Trips Completed", icon: <Route {...iconProps} /> },
+  { target: 18546, decimals: 0, suffix: "+", label: "Trips Completed", icon: <Route {...iconProps} /> },
   { target: 24, decimals: 0, suffix: "/7", label: "Always Available", icon: <Clock3 {...iconProps} /> },
 ];
 

@@ -78,7 +78,11 @@ export default function CoverageRoute({ stops }: { stops: CoverageStop[] }) {
       <div className="pointer-events-none absolute left-4 top-4 bottom-4 w-px border-l-2 border-dashed border-zinc-200 sm:hidden" />
 
       <ol className="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-0">
-        {stops.map((c, i) => (
+        {stops.map((c, i) => {
+          const ringCount = i + 1;
+          const coreSize = 32 + i * 6;
+          const boxSize = coreSize + ringCount * 18;
+          return (
           <li
             key={c.title}
             ref={(el) => {
@@ -86,10 +90,27 @@ export default function CoverageRoute({ stops }: { stops: CoverageStop[] }) {
             }}
             className="group relative flex items-start gap-5 pl-0 sm:flex-col sm:items-center sm:text-center"
           >
-            {/* pin marker */}
-            <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center sm:mb-7">
-              <span className="absolute inline-flex h-8 w-8 rounded-full bg-primary/30 opacity-0 transition-opacity duration-300 group-hover:animate-ping group-hover:opacity-100" />
-              <span className="hover-glow relative flex h-8 w-8 items-center justify-center rounded-full bg-white text-primary shadow-[0_6px_18px_-6px_rgba(11,180,181,0.9)] ring-1 ring-primary/20 transition-colors duration-300 group-hover:bg-primary group-hover:text-white group-hover:ring-primary">
+            {/* pin marker — expanding radar rings signal growing coverage */}
+            <span
+              className="relative z-10 flex shrink-0 items-center justify-center sm:mb-7"
+              style={{ height: boxSize, width: boxSize }}
+            >
+              {Array.from({ length: ringCount }).map((_, r) => (
+                <span
+                  key={r}
+                  aria-hidden
+                  className="absolute rounded-full border border-primary/25 transition-colors duration-300 group-hover:border-primary/50"
+                  style={{
+                    height: coreSize + (r + 1) * 18,
+                    width: coreSize + (r + 1) * 18,
+                  }}
+                />
+              ))}
+              <span className="absolute inline-flex rounded-full bg-primary/30 opacity-0 transition-opacity duration-300 group-hover:animate-ping group-hover:opacity-100" style={{ height: coreSize, width: coreSize }} />
+              <span
+                className="hover-glow relative flex items-center justify-center rounded-full bg-white text-primary shadow-[0_6px_18px_-6px_rgba(11,180,181,0.9)] ring-1 ring-primary/20 transition-colors duration-300 group-hover:bg-primary group-hover:text-white group-hover:ring-primary"
+                style={{ height: coreSize, width: coreSize }}
+              >
                 <MapPin />
               </span>
             </span>
@@ -104,7 +125,8 @@ export default function CoverageRoute({ stops }: { stops: CoverageStop[] }) {
               <p className="mt-1 text-zinc-500 sm:mt-2 sm:max-w-[15rem]">{c.note}</p>
             </div>
           </li>
-        ))}
+          );
+        })}
       </ol>
     </div>
   );

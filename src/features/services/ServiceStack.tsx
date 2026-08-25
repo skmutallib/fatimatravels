@@ -66,53 +66,64 @@ export default function ServiceStack({
     const cards = cardsRef.current.filter((c): c is HTMLDivElement => !!c);
     if (cards.length < 2) return;
 
-    const ctx = gsap.context(() => {
-      gsap.set(cards, { yPercent: 0, scale: 1, filter: "brightness(1)" });
-      gsap.set(cards.slice(1), { yPercent: 100 });
+    // Pinned card-stack effect only applies at sm+ — mobile gets a normal
+    // flowing stack of full cards instead (no pin, no scroll-jacking).
+    const mm = gsap.matchMedia();
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapRef.current,
-          start: "top top+=88",
-          end: () => `+=${(cards.length - 1) * 480}`,
-          scrub: 0.6,
-          pin: true,
-          pinType: "transform",
-          anticipatePin: 1,
-        },
-      });
+    mm.add("(min-width: 640px)", () => {
+      const ctx = gsap.context(() => {
+        gsap.set(cards, { yPercent: 0, scale: 1, filter: "brightness(1)" });
+        gsap.set(cards.slice(1), { yPercent: 100 });
 
-      for (let i = 1; i < cards.length; i++) {
-        tl.to(cards[i], { yPercent: 0, duration: 1, ease: "none" }, i - 1);
-        for (let j = 0; j < i; j++) {
-          const depth = i - j;
-          tl.to(
-            cards[j],
-            {
-              yPercent: -depth * 5,
-              scale: 1 - depth * 0.045,
-              filter: `brightness(${Math.max(0.6, 1 - depth * 0.12)})`,
-              duration: 1,
-              ease: "none",
-            },
-            i - 1,
-          );
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapRef.current,
+            start: "top top+=88",
+            end: () => `+=${(cards.length - 1) * 480}`,
+            scrub: 0.6,
+            pin: true,
+            pinType: "transform",
+            anticipatePin: 1,
+          },
+        });
+
+        for (let i = 1; i < cards.length; i++) {
+          tl.to(cards[i], { yPercent: 0, duration: 1, ease: "none" }, i - 1);
+          for (let j = 0; j < i; j++) {
+            const depth = i - j;
+            tl.to(
+              cards[j],
+              {
+                yPercent: -depth * 5,
+                scale: 1 - depth * 0.045,
+                filter: `brightness(${Math.max(0.6, 1 - depth * 0.12)})`,
+                duration: 1,
+                ease: "none",
+              },
+              i - 1,
+            );
+          }
         }
-      }
-    }, wrapRef);
+      }, wrapRef);
 
-    return () => ctx.revert();
+      return () => ctx.revert();
+    });
+
+    return () => mm.revert();
   }, [services.length]);
 
   return (
-    <div ref={wrapRef} className="relative z-10 h-screen min-h-[640px] w-full overflow-hidden bg-white">
+    <div
+      ref={wrapRef}
+      className="relative z-10 flex w-full flex-col gap-6 bg-white sm:block sm:h-screen sm:min-h-[640px] sm:gap-0 sm:overflow-hidden"
+    >
       {services.map((s, i) => (
         <div
           key={s.name}
           ref={(el) => {
             cardsRef.current[i] = el;
           }}
-          className="absolute inset-0 flex items-center justify-center px-6 pt-20"
+          className="relative flex items-center justify-center px-6 sm:absolute sm:inset-0 sm:pt-20"
           style={{ zIndex: i + 1 }}
         >
           <a

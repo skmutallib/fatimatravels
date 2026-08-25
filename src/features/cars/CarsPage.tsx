@@ -31,9 +31,26 @@ const suvs = [
 // Real photos for specific models — everything else falls back to the
 // illustrated VehicleArt.
 const carPhotos: Record<string, string> = {
-  "Maruti Suzuki Baleno": "/maruti-baleno.png",
-  Innova: "/innova-hycross-photo.webp",
-  "Innova Crysta": "/innova-crysta-photo.webp",
+  "Maruti Suzuki Baleno": "/baleno.png",
+  "Swift Dzire": "/swift-dzire.png",
+  "Toyota Etios": "/toyota-etios.png",
+  "Maruti Suzuki Brezza": "/maruti-brezza.png",
+  Innova: "/innova.png",
+  "Innova Crysta": "/innova-crysta.png",
+  "Toyota Fortuner": "/toyota-fortuner.png",
+  "Innova Hycross": "/innova-hycross-suv.png",
+  "Kia Carnival": "/kia-carnival.png",
+  "Toyota Vellfire": "/toyota-vellfire.png",
+  "Fortuner Legender": "/fortuner-legender.png",
+  "Rolls-Royce": "/rolls-royce-phantom.png",
+  Bentley: "/bentley-flying-spur.png",
+  BMW: "/bmw-5-series-navy.png",
+  Audi: "/audi-a8-red.png",
+  "Mercedes-Benz": "/mercedes-s-class-black.png",
+  Jaguar: "/jaguar-xf-grey.png",
+  Volvo: "/volvo-s90-grey.png",
+  Lexus: "/lexus-es-grey.png",
+  "Range Rover": "/range-rover-bronze.png",
 };
 
 const ultraLuxury: { brand: string; line: string }[] = [
@@ -68,7 +85,7 @@ const INK = "text-[#132238]";
 
 // Spec summary shown as chips on each vehicle card.
 const vehInfo: Record<Vehicle, { label: string; seats: string; bags: string }> = {
-  sedan: { label: "Sedan", seats: "4 Seats", bags: "2 Bags" },
+  sedan: { label: "Sedan", seats: "4 Seats", bags: "4 Bags" },
   suv: { label: "SUV", seats: "6–7 Seats", bags: "4 Bags" },
   van: { label: "Luxury Van", seats: "7 Seats", bags: "5 Bags" },
   bus: { label: "Coach", seats: "12–50 Seats", bags: "Group" },
@@ -237,7 +254,7 @@ function ModelCard({
         </div>
 
         <span className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(11,180,181,0.9)] transition-colors group-hover:bg-[#0a9fa0]">
-          Enquire on WhatsApp
+          Book Now
           <ArrowRight />
         </span>
       </div>
@@ -430,7 +447,9 @@ export default function CarsPage() {
           subtitle="The world's finest badges, chauffeur-driven, on your schedule."
         />
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {luxuryBrands.map((b, i) => (
+          {luxuryBrands.map((b, i) => {
+            const photo = carPhotos[b.brand];
+            return (
             <Link
               key={b.brand}
               href={`/cars/${slugify(b.brand)}`}
@@ -443,12 +462,16 @@ export default function CarsPage() {
                     {b.models.length} models
                   </p>
                 </div>
-                <div className="relative flex h-12 w-20 shrink-0 items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
-                  <VehicleArt
-                    variant={b.variant}
-                    color={paint(i).body}
-                    roof={paint(i).roof}
-                  />
+                <div className="relative flex h-14 w-24 shrink-0 items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
+                  {photo ? (
+                    <Image src={photo} alt={b.brand} fill sizes="140px" className="object-contain" />
+                  ) : (
+                    <VehicleArt
+                      variant={b.variant}
+                      color={paint(i).body}
+                      roof={paint(i).roof}
+                    />
+                  )}
                 </div>
               </div>
 
@@ -457,7 +480,8 @@ export default function CarsPage() {
                 <ArrowRight />
               </span>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -471,13 +495,7 @@ export default function CarsPage() {
           <div className="pointer-events-none absolute inset-3 rounded-[2rem] border border-[#e9c877]/15 sm:inset-4" />
 
           <div className="relative max-w-2xl">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[#e9c877]/70" />
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-[#e9c877]">
-                By Invitation
-              </span>
-            </div>
-            <h2 className="mt-3 font-serif text-4xl italic font-medium tracking-tight text-sheen-gold sm:text-5xl">
+            <h2 className="font-serif text-4xl italic font-medium tracking-tight text-sheen-gold sm:text-5xl">
               Ultra Luxury
             </h2>
             <p className="mt-3 text-white/60">
@@ -486,7 +504,9 @@ export default function CarsPage() {
           </div>
 
           <div className="relative mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {ultraLuxury.map((u) => (
+            {ultraLuxury.map((u) => {
+              const photo = carPhotos[u.brand];
+              return (
               <button
                 key={u.brand}
                 type="button"
@@ -496,7 +516,11 @@ export default function CarsPage() {
                 <div className="relative flex h-20 w-32 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10">
                   <span className="pointer-events-none absolute h-28 w-28 rounded-full bg-[#e9c877]/25 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="relative flex h-14 w-24 items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
-                    <VehicleArt variant="sedan" color="#e4e6ea" roof="#c3c7d1" />
+                    {photo ? (
+                      <Image src={photo} alt={u.brand} fill sizes="200px" className="scale-150 object-contain" />
+                    ) : (
+                      <VehicleArt variant="sedan" color="#e4e6ea" roof="#c3c7d1" />
+                    )}
                   </div>
                 </div>
 
@@ -515,7 +539,8 @@ export default function CarsPage() {
                   <ArrowRight />
                 </span>
               </button>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

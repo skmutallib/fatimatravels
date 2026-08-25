@@ -38,7 +38,7 @@ export default function Navbar() {
     <header className="animate-pop-down fixed inset-x-0 top-4 z-50 px-4">
       <nav
         ref={navRef}
-        className="relative mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 border border-zinc-200 bg-linear-to-b from-white to-zinc-50 pl-6 pr-2 shadow-sm sm:pl-8 sm:pr-2"
+        className="relative mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 rounded-full border border-zinc-200 bg-linear-to-b from-white to-zinc-50 pl-6 pr-2 shadow-sm sm:pl-8 sm:pr-2"
       >
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center" onClick={() => setOpen(false)}>
@@ -62,11 +62,11 @@ export default function Navbar() {
                   className="mx-4 inline-block h-1 w-1 rounded-full bg-zinc-300"
                 />
               )}
-              <Link
-                href={item.href}
-                className="px-1 py-1 transition-colors hover:text-zinc-950"
-              >
-                {item.label}
+              <Link href={item.href} className="group relative px-1 py-1">
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-zinc-950">
+                  {item.label}
+                </span>
+                <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100" />
               </Link>
             </li>
           ))}
@@ -77,10 +77,10 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setOpen(false)}
-            className="group inline-flex shrink-0 items-center gap-3 bg-neutral-900 py-2.5 pl-6 pr-2.5 text-base font-medium text-white transition-colors hover:bg-primary"
+            className="group hidden shrink-0 items-center gap-3 rounded-full bg-neutral-900 py-2.5 pl-6 pr-2.5 text-base font-medium text-white transition-all duration-300 hover:bg-primary hover:shadow-[0_10px_24px_-10px_rgba(11,180,181,0.8)] sm:inline-flex"
           >
             Book Now
-            <span className="flex h-6 w-6 items-center justify-center border border-white/25 bg-white/10 transition-colors group-hover:bg-white/20">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/25 bg-white/10 transition-colors group-hover:bg-white/20">
               <svg aria-hidden viewBox="0 0 16 16" fill="none" className="h-4 w-4">
                 <path
                   d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5"
@@ -99,46 +99,88 @@ export default function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-zinc-700 transition-colors hover:bg-zinc-100 md:hidden"
+            className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-zinc-700 transition-colors hover:bg-zinc-100 md:hidden"
           >
             <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-              {open ? (
-                <path
-                  d="M6 6l12 12M18 6L6 18"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-              ) : (
-                <path
-                  d="M4 7h16M4 12h16M4 17h16"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-              )}
+              <path
+                d="M4 7h16"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                className={`origin-center transition-transform duration-300 ${
+                  open ? "translate-y-[5px] rotate-45" : ""
+                }`}
+              />
+              <path
+                d="M4 12h16"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                className={`origin-center transition-opacity duration-200 ${
+                  open ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <path
+                d="M4 17h16"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                className={`origin-center transition-transform duration-300 ${
+                  open ? "-translate-y-[5px] -rotate-45" : ""
+                }`}
+              />
             </svg>
           </button>
         </div>
 
         {/* Mobile dropdown panel */}
-        {open && (
-          <div className="absolute inset-x-0 top-full mt-2 border border-zinc-200 bg-white p-2 shadow-premium md:hidden">
-            <ul className="flex flex-col text-[15px] font-medium text-zinc-600">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-lg px-4 py-3 transition-colors hover:bg-zinc-50 hover:text-zinc-950"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div
+          className={`absolute inset-x-0 top-full mt-2 origin-top overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-premium transition-all duration-300 ease-out md:hidden ${
+            open
+              ? "translate-y-0 scale-100 opacity-100"
+              : "pointer-events-none -translate-y-2 scale-95 opacity-0"
+          }`}
+        >
+          <ul className="flex flex-col p-2 text-[15px] font-medium text-zinc-600">
+            {navItems.map((item, i) => (
+              <li
+                key={item.href}
+                className="transition-all duration-300"
+                style={{
+                  transitionDelay: open ? `${i * 40}ms` : "0ms",
+                  opacity: open ? 1 : 0,
+                  transform: open ? "translateY(0)" : "translateY(-6px)",
+                }}
+              >
+                <Link
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-2xl px-4 py-3 transition-colors hover:bg-zinc-50 hover:text-zinc-950"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            <li className="mt-1 border-t border-zinc-100 pt-2 sm:hidden">
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-2xl bg-neutral-900 px-4 py-3 font-semibold text-white transition-colors hover:bg-primary"
+              >
+                Book Now
+                <svg aria-hidden viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                  <path
+                    d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            </li>
+          </ul>
+        </div>
       </nav>
     </header>
   );

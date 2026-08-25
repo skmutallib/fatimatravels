@@ -32,7 +32,7 @@ export default function FaqSection() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="mx-auto w-[90vw] px-6 py-16 sm:px-10 lg:px-16">
+    <section id="faq" className="mx-auto w-[90vw] scroll-mt-28 px-6 py-16 sm:px-10 lg:px-16">
       {/* Header */}
       <div className="reveal text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
