@@ -88,15 +88,23 @@ export default function SmoothScroll({
   }, [pathname]);
 
   useLayoutEffect(() => {
+    // ScrollSmoother re-implements scrolling in JS (via normalizeScroll),
+    // which feels laggy on touch devices compared to native momentum
+    // scrolling. Only enable it for mouse/trackpad input; touch devices get
+    // plain native scroll, with ScrollTrigger reveal animations still
+    // working off the native scroll position.
+    const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
     const ctx = gsap.context(() => {
-      // GSAP smooth scrolling
-      ScrollSmoother.create({
-        wrapper: wrapper.current!,
-        content: content.current!,
-        smooth: 1.2,
-        effects: true,
-        normalizeScroll: true,
-      });
+      if (!isTouch) {
+        ScrollSmoother.create({
+          wrapper: wrapper.current!,
+          content: content.current!,
+          smooth: 1.2,
+          effects: true,
+          normalizeScroll: true,
+        });
+      }
 
       // Reveal-on-scroll for tagged elements
       gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {

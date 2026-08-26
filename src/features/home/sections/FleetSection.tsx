@@ -64,7 +64,10 @@ export default function FleetSection() {
       </div>
 
       {/* Cards */}
-      <div className="scrollbar-none -mx-6 mt-12 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-8 pt-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-4 xl:grid-cols-4">
+      <div
+        className="scrollbar-none -mx-6 mt-12 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-12 pt-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-4 xl:grid-cols-4"
+        style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
+      >
         {cars.map((car) => (
           <Link
             key={car.name}

@@ -206,7 +206,7 @@ function ModelCard({
     <button
       type="button"
       onClick={() => onEnquire(name)}
-      className="hover-glow reveal group relative flex flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white text-left shadow-premium"
+      className="hover-glow reveal group relative flex w-[82vw] shrink-0 snap-start flex-col overflow-hidden rounded-3xl border border-zinc-200/70 bg-white text-left shadow-premium sm:w-auto sm:shrink"
     >
       {/* Media panel — car in a soft spotlight with a reflection line */}
       <div className="relative overflow-hidden bg-linear-to-b from-zinc-50 to-white px-6 pt-6">
@@ -418,7 +418,10 @@ export default function CarsPage() {
           title="Sedans"
           subtitle="Comfortable, economical rides with a professional chauffeur."
         />
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          className="scrollbar-none -mx-6 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-10 pt-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
+          style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
+        >
           {sedans.map((name, i) => (
             <ModelCard key={name} name={name} variant="sedan" index={i} onEnquire={setSelectedCar} />
           ))}
@@ -432,7 +435,10 @@ export default function CarsPage() {
           title="SUVs"
           subtitle="Extra space and command for families and longer journeys."
         />
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          className="scrollbar-none -mx-6 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-10 pt-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
+          style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
+        >
           {suvs.map((name, i) => (
             <ModelCard key={name} name={name} variant="suv" index={i} onEnquire={setSelectedCar} />
           ))}
@@ -511,20 +517,20 @@ export default function CarsPage() {
                 key={u.brand}
                 type="button"
                 onClick={() => setSelectedCar(u.brand)}
-                className="hover-glow hover-glow-gold group relative flex flex-col overflow-hidden rounded-3xl border border-[#e9c877]/25 bg-white/[0.04] p-7 text-left backdrop-blur-sm sm:flex-row sm:items-center sm:gap-7"
+                className="hover-glow hover-glow-gold group relative flex flex-col overflow-hidden rounded-3xl border border-[#e9c877]/25 bg-white/[0.04] text-left backdrop-blur-sm sm:flex-row sm:items-center sm:gap-7 sm:p-7"
               >
-                <div className="relative flex h-20 w-32 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10">
+                <div className="relative flex h-44 w-full shrink-0 items-center justify-center overflow-hidden bg-white/5 ring-1 ring-white/10 sm:h-20 sm:w-32 sm:rounded-2xl">
                   <span className="pointer-events-none absolute h-28 w-28 rounded-full bg-[#e9c877]/25 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="relative flex h-14 w-24 items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110">
+                  <div className="relative flex h-full w-full items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110 sm:h-14 sm:w-24">
                     {photo ? (
-                      <Image src={photo} alt={u.brand} fill sizes="200px" className="scale-150 object-contain" />
+                      <Image src={photo} alt={u.brand} fill sizes="200px" className="scale-125 object-contain sm:scale-150" />
                     ) : (
                       <VehicleArt variant="sedan" color="#e4e6ea" roof="#c3c7d1" />
                     )}
                   </div>
                 </div>
 
-                <div className="mt-5 flex-1 sm:mt-0">
+                <div className="p-7 pt-5 sm:flex-1 sm:p-0">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e9c877]">
                     Flagship
                   </p>
@@ -534,7 +540,7 @@ export default function CarsPage() {
                   <p className="mt-1.5 text-sm text-white/55">{u.line}</p>
                 </div>
 
-                <span className="mt-5 flex items-center justify-center gap-2 rounded-xl border border-[#e9c877]/50 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-[#e9c877] transition-colors duration-300 group-hover:bg-[#e9c877] group-hover:text-[#0b1220] sm:mt-0 sm:shrink-0">
+                <span className="mx-7 mb-7 mt-5 flex items-center justify-center gap-2 rounded-xl border border-[#e9c877]/50 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-[#e9c877] transition-colors duration-300 group-hover:bg-[#e9c877] group-hover:text-[#0b1220] sm:mx-0 sm:mb-0 sm:mt-0 sm:shrink-0">
                   Reserve
                   <ArrowRight />
                 </span>

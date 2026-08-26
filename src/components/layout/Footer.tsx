@@ -115,7 +115,7 @@ export default function Footer() {
                   className="flex items-center justify-center gap-2.5 transition-colors hover:text-white lg:justify-start"
                 >
                   <MessageCircle className="h-4 w-4 shrink-0" />
-                  WhatsApp
+                  {siteConfig.whatsapp}
                 </a>
               </li>
               <li>

@@ -90,30 +90,37 @@ export default function CoverageRoute({ stops }: { stops: CoverageStop[] }) {
             }}
             className="group relative flex items-start gap-5 pl-0 sm:flex-col sm:items-center sm:text-center"
           >
-            {/* pin marker — expanding radar rings signal growing coverage */}
-            <span
-              className="relative z-10 flex shrink-0 items-center justify-center sm:mb-7"
-              style={{ height: boxSize, width: boxSize }}
+            {/* pin marker — expanding radar rings signal growing coverage.
+                Fixed-width outer slot keeps the pin's visual center locked to
+                the connecting line on mobile even as the rings grow. */}
+            <div
+              className="flex shrink-0 items-center justify-center sm:contents"
+              style={{ width: 32, height: boxSize }}
             >
-              {Array.from({ length: ringCount }).map((_, r) => (
-                <span
-                  key={r}
-                  aria-hidden
-                  className="absolute rounded-full border border-primary/25 transition-colors duration-300 group-hover:border-primary/50"
-                  style={{
-                    height: coreSize + (r + 1) * 18,
-                    width: coreSize + (r + 1) * 18,
-                  }}
-                />
-              ))}
-              <span className="absolute inline-flex rounded-full bg-primary/30 opacity-0 transition-opacity duration-300 group-hover:animate-ping group-hover:opacity-100" style={{ height: coreSize, width: coreSize }} />
               <span
-                className="hover-glow relative flex items-center justify-center rounded-full bg-white text-primary shadow-[0_6px_18px_-6px_rgba(11,180,181,0.9)] ring-1 ring-primary/20 transition-colors duration-300 group-hover:bg-primary group-hover:text-white group-hover:ring-primary"
-                style={{ height: coreSize, width: coreSize }}
+                className="relative z-10 flex items-center justify-center sm:mb-7"
+                style={{ height: boxSize, width: boxSize }}
               >
-                <MapPin />
+                {Array.from({ length: ringCount }).map((_, r) => (
+                  <span
+                    key={r}
+                    aria-hidden
+                    className="absolute rounded-full border border-primary/25 transition-colors duration-300 group-hover:border-primary/50"
+                    style={{
+                      height: coreSize + (r + 1) * 18,
+                      width: coreSize + (r + 1) * 18,
+                    }}
+                  />
+                ))}
+                <span className="absolute inline-flex rounded-full bg-primary/30 opacity-0 transition-opacity duration-300 group-hover:animate-ping group-hover:opacity-100" style={{ height: coreSize, width: coreSize }} />
+                <span
+                  className="hover-glow relative flex items-center justify-center rounded-full bg-white text-primary shadow-[0_6px_18px_-6px_rgba(11,180,181,0.9)] ring-1 ring-primary/20 transition-colors duration-300 group-hover:bg-primary group-hover:text-white group-hover:ring-primary"
+                  style={{ height: coreSize, width: coreSize }}
+                >
+                  <MapPin />
+                </span>
               </span>
-            </span>
+            </div>
 
             <div>
               <span className="text-sm font-semibold tracking-[0.2em] text-primary">

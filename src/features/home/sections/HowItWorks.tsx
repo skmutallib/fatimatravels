@@ -28,7 +28,7 @@ const steps: Step[] = [
   },
   {
     num: "4",
-    title: "Drive Comes to Your Location",
+    title: "We Come to You",
     desc: "We bring the car to you, just drive and enjoy your journey!",
     icon: KeyRound,
   },
@@ -91,26 +91,25 @@ export default function HowItWorks() {
               {/* mobile-only vertical road segment connecting this step to the previous one */}
               {idx > 0 && (
                 <div className="flex justify-center sm:hidden" aria-hidden>
-                  <svg
-                    width="36"
-                    height="48"
-                    viewBox="0 0 36 48"
-                    className="overflow-visible"
-                  >
-                    <path
-                      d="M18,0 C2,10 34,20 18,28 C6,34 18,36 18,48"
-                      fill="none"
+                  <svg width="20" height="40" viewBox="0 0 20 40" className="overflow-visible">
+                    <line
+                      x1="10"
+                      y1="0"
+                      x2="10"
+                      y2="40"
                       stroke="#8a93a3"
-                      strokeWidth="9"
+                      strokeWidth="10"
                       strokeLinecap="round"
                       vectorEffect="non-scaling-stroke"
                     />
-                    <path
-                      d="M18,0 C2,10 34,20 18,28 C6,34 18,36 18,48"
-                      fill="none"
+                    <line
+                      x1="10"
+                      y1="0"
+                      x2="10"
+                      y2="40"
                       stroke="#ffffff"
-                      strokeWidth="2.5"
-                      strokeDasharray="7 6"
+                      strokeWidth="3"
+                      strokeDasharray="8 6"
                       strokeLinecap="butt"
                       vectorEffect="non-scaling-stroke"
                     />

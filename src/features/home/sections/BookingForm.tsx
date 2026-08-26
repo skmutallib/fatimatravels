@@ -152,7 +152,10 @@ export default function BookingForm() {
     <section className="relative z-20 -mt-20 px-6 pb-16 sm:-mt-29">
       <div className="mx-auto max-w-7xl rounded-2xl border border-zinc-100 bg-white p-5 shadow-premium sm:p-7">
         {/* Tabs */}
-        <div className="scrollbar-none flex items-center gap-x-8 overflow-x-auto border-b border-zinc-100 pb-1">
+        <div
+          className="scrollbar-none flex items-center gap-x-8 overflow-x-auto border-b border-zinc-100 pb-1"
+          style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
+        >
           {tabs.map((tab) => {
             const active = tab.key === activeTab;
             return (

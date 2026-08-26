@@ -45,26 +45,37 @@ const features = [
 export default function Hero() {
   return (
     <section className="relative isolate min-h-screen w-screen overflow-hidden sm:h-[90vh] sm:min-h-0">
-      {/* Background image */}
+      {/* Mobile: solid primary background with subtle diagonal lines */}
+      <div className="absolute inset-0 -z-20 bg-linear-to-br from-primary via-[#0aa6a7] to-[#088f90] sm:hidden">
+        <div
+          className="absolute inset-0 opacity-[0.15]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, rgba(255,255,255,0.8) 0px, rgba(255,255,255,0.8) 1px, transparent 1px, transparent 14px)",
+          }}
+        />
+      </div>
+
+      {/* Desktop: photographic background */}
       <Image
         src="/herobackground.jpg"
         alt="Fleet of rental cars in front of a city skyline"
         fill
         priority
         sizes="100vw"
-        className="-z-20 object-cover object-right"
+        className="-z-20 hidden object-cover object-right sm:block"
       />
       <div className="flex h-full w-full items-center px-6 pt-28 pb-16 sm:px-30 sm:py-0">
         <div className="max-w-2xl">
-          <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-[#132238] sm:text-6xl sm:leading-[1.05]">
+          <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-6xl sm:leading-[1.05] sm:text-[#132238]">
             Move Around
             <br />
             Your City,
             <br />
-            <span className="text-primary">Your Way.</span>
+            <span className="text-[#f5d485] sm:text-primary">Your Way.</span>
           </h1>
 
-          <p className="mt-6 text-sm leading-relaxed text-zinc-600 sm:mt-8 sm:text-lg">
+          <p className="mt-6 text-sm leading-relaxed text-white/85 sm:mt-8 sm:text-lg sm:text-zinc-600">
             Flexible car rentals for every journey.
             <br />
             Daily, weekly, or monthly &ndash; you choose.
@@ -73,12 +84,12 @@ export default function Hero() {
           <ul className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4 sm:mt-8 sm:gap-x-8">
             {features.map((feature) => (
               <li key={feature.subtitle} className="flex items-center gap-2.5">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/40 text-primary">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/40 text-white sm:border-primary/40 sm:text-primary">
                   <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
                     {feature.icon}
                   </svg>
                 </span>
-                <span className="text-[14px] font-semibold leading-tight text-[#132238]">
+                <span className="text-[14px] font-semibold leading-tight text-white sm:text-[#132238]">
                   {feature.title}
                   <br />
                   {feature.subtitle}

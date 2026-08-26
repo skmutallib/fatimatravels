@@ -432,19 +432,19 @@ export default function AboutPage() {
             25 years, one promise, a driver you can trust, a car you can
             rely on. Every single time.
           </p>
-          <div className="relative mx-auto mt-9 flex max-w-md items-center justify-center gap-3 sm:max-w-none sm:gap-4">
+          <div className="relative mx-auto mt-9 flex items-center justify-center gap-2 sm:gap-4">
             <a
               href={book("a trip")}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-4 text-sm font-semibold text-white shadow-[0_16px_40px_-16px_rgba(11,180,181,1)] transition-transform duration-300 hover:-translate-y-0.5 sm:flex-initial sm:px-8"
+              className="group flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl bg-primary px-3 py-3.5 text-[13px] font-semibold text-white shadow-[0_16px_40px_-16px_rgba(11,180,181,1)] transition-transform duration-300 hover:-translate-y-0.5 sm:flex-initial sm:gap-2 sm:px-8 sm:py-4 sm:text-sm"
             >
               Chat on WhatsApp
               <ArrowRight />
             </a>
             <Link
               href="/contact"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-zinc-300 bg-white px-4 py-4 text-sm font-semibold text-[#132238] transition-colors hover:border-primary hover:text-primary sm:flex-initial sm:px-8"
+              className="flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl border border-zinc-300 bg-white px-3 py-3.5 text-[13px] font-semibold text-[#132238] transition-colors hover:border-primary hover:text-primary sm:flex-initial sm:gap-2 sm:px-8 sm:py-4 sm:text-sm"
             >
               Get a quote
             </Link>
