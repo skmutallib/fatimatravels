@@ -32,6 +32,7 @@ const modelPhotos: Record<string, string> = {
   "Lexus ES 300h": "/lexus-es300h.png",
   "Lexus LX 600": "/lexus-lx600.png",
   "Range Rover": "/range-rover.png",
+  "Range Rover SUV & Sedan": "/range-rover-velar.png",
 };
 
 function ArrowRight() {

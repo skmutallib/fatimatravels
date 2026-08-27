@@ -51,6 +51,11 @@ const carPhotos: Record<string, string> = {
   Volvo: "/volvo-s90-grey.png",
   Lexus: "/lexus-es-grey.png",
   "Range Rover": "/range-rover-bronze.png",
+  "12 Seater": "/force-traveller-12-seater.png",
+  "22 Seater": "/sml-coach-22-seater.png",
+  "30 Seater": "/ashok-leyland-30-seater.png",
+  "40 Seater": "/ashok-leyland-oyster-40-seater.png",
+  "50 Seater": "/tata-marcopolo-50-seater.png",
 };
 
 const ultraLuxury: { brand: string; line: string }[] = [
@@ -63,11 +68,11 @@ const luxuryVans = ["Kia Carnival", "Toyota Vellfire"];
 const buses = ["12 Seater", "22 Seater", "30 Seater", "40 Seater", "50 Seater"];
 
 const busSeatRanges: Record<string, string> = {
-  "12 Seater": "12-20 Seats",
-  "22 Seater": "22-30 Seats",
-  "30 Seater": "30-40 Seats",
-  "40 Seater": "40-50 Seats",
-  "50 Seater": "50-60 Seats",
+  "12 Seater": "12-14 Seats",
+  "22 Seater": "22-24 Seats",
+  "30 Seater": "30-32 Seats",
+  "40 Seater": "40-42 Seats",
+  "50 Seater": "50-52 Seats",
 };
 
 const heroStats = [
@@ -233,7 +238,7 @@ function ModelCard({
                 alt={name}
                 fill
                 sizes="320px"
-                className="scale-150 object-contain"
+                className={variant === "bus" ? "object-contain" : "scale-150 object-contain"}
               />
             ) : (
               <VehicleArt variant={variant} color={p.body} roof={p.roof} />

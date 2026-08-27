@@ -65,7 +65,7 @@ export default function Hero() {
 
       {/* Desktop: photographic background */}
       <Image
-        src="/herobackground.jpg"
+        src="/herobackground-hyderabad.png"
         alt="Fleet of rental cars in front of a city skyline"
         fill
         priority

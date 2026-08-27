@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
@@ -46,9 +47,13 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 text-center lg:grid-cols-[1.3fr_0.8fr_0.8fr_0.9fr] lg:gap-12 lg:text-left">
           {/* Brand + newsletter */}
           <div className="col-span-2 flex flex-col items-center lg:col-span-1 lg:items-start">
-            <span className="text-3xl font-black italic leading-none tracking-tight text-white">
-              Fatima
-            </span>
+            <Image
+              src="/fatima-logo-white.png"
+              alt={siteConfig.name}
+              width={220}
+              height={78}
+              className="h-9 w-auto"
+            />
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/70">
               Join our updates list to stay up to date on offers and new
               routes.
