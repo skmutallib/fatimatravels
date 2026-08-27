@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getMarque, luxuryBrands, slugify } from "@/features/cars/shared";
 import BrandModelGrid from "@/features/cars/BrandModelGrid";
+import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return luxuryBrands.map((b) => ({ slug: slugify(b.brand) }));
@@ -12,14 +14,20 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const marque = getMarque(slug);
-  return {
-    title: marque
-      ? `${marque.brand} | Fatima Travels`
-      : "Cars | Fatima Travels",
-  };
+
+  if (!marque) {
+    return { title: "Cars", alternates: { canonical: "/cars" } };
+  }
+
+  return pageMetadata({
+    title: marque.brand,
+    socialTitle: `${marque.brand} car rental in Hyderabad`,
+    description: `Hire a chauffeur-driven ${marque.brand} in Hyderabad with Fatima Travels — ${marque.models.join(", ")}. Airport transfers, city trips, weddings and outstation tours, 24/7.`,
+    path: `/cars/${slug}`,
+  });
 }
 
 export default async function MarquePage({

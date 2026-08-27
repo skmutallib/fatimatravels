@@ -3,10 +3,22 @@
  * Import from here instead of hardcoding links across components.
  */
 
+/**
+ * Canonical origin used for SEO metadata (canonical URLs, Open Graph, sitemap).
+ * Set NEXT_PUBLIC_SITE_URL in the hosting environment once the domain is live.
+ */
+export const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+  "https://www.fatimatravels.in";
+
 export const siteConfig = {
   name: "Fatima Tours and Travels",
   shortName: "Fatima Travels",
   logo: "/logo.png",
+  url: siteUrl,
+  /** Kept under ~160 characters so Google shows it in full. */
+  description:
+    "Chauffeur-driven luxury car rentals in Hyderabad — sedans, SUVs, tempo travellers and buses for airport, local, outstation and all-India trips. Book 24/7.",
   tagline:
     "Hyderabad's premium chauffeured luxury travel operator. Serving Telangana & All-India routes since 2001.",
   phone: "+91 99493 75608",

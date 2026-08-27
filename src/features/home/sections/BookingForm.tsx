@@ -149,11 +149,11 @@ export default function BookingForm() {
   };
 
   return (
-    <section className="relative z-20 -mt-20 px-6 pb-16 sm:-mt-29">
+    <section className="relative z-20 -mt-48 px-6 pb-16 sm:-mt-29">
       <div className="mx-auto max-w-7xl rounded-2xl border border-zinc-100 bg-white p-5 shadow-premium sm:p-7">
         {/* Tabs */}
         <div
-          className="scrollbar-none flex items-center gap-x-8 overflow-x-auto border-b border-zinc-100 pb-1"
+          className="scrollbar-none grid grid-cols-2 gap-x-4 gap-y-3 border-b border-zinc-100 pb-3 sm:flex sm:items-center sm:gap-x-8 sm:gap-y-0 sm:overflow-x-auto sm:pb-1"
           style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
         >
           {tabs.map((tab) => {
@@ -163,13 +163,13 @@ export default function BookingForm() {
                 key={tab.key}
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
-                className={`-mb-px flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 pb-3 text-[15px] font-semibold transition-colors ${
+                className={`-mb-px flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 pb-2 text-[13px] font-semibold transition-colors sm:pb-3 sm:text-[15px] ${
                   active
                     ? "border-primary text-primary"
                     : "border-transparent text-zinc-500 hover:text-zinc-800"
                 }`}
               >
-                <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+                <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0">
                   {tab.icon}
                 </svg>
                 {tab.label}
