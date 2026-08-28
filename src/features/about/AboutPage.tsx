@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { BadgeIndianRupee, Clock, ShieldCheck, Sparkles } from "lucide-react";
 
 import { siteConfig } from "@/lib/site";
-import { luxuryBrands, paint, VehicleArt } from "@/features/cars/shared";
+import { luxuryBrands, paint, slugify, VehicleArt } from "@/features/cars/shared";
 import ValuesGrid from "@/features/about/ValuesGrid";
 
 const brandPhotos: Record<string, string> = {
@@ -101,7 +101,7 @@ const values = [
   },
   {
     name: "Comfort & Class",
-    desc: "Sanitised, well-appointed interiors on every trip, from executive sedans to our ultra-luxury marques.",
+    desc: "Sanitised, well-appointed interiors on every trip, from executive sedans to our ultra-luxury cars.",
     icon: <Sparkles className="h-6 w-6" strokeWidth={1.75} />,
   },
   {
@@ -333,10 +333,10 @@ export default function AboutPage() {
           <div className="max-w-2xl">
             <Eyebrow>Our fleet</Eyebrow>
             <h2 className={`mt-3 text-3xl font-bold tracking-tight sm:text-4xl ${INK}`}>
-              From executive sedans to the ultra-luxury marques.
+              From executive sedans to the ultra-luxury cars.
             </h2>
             <p className="mt-2 text-zinc-500">
-              Every car chauffeur-driven, every marque maintained to the same
+              Every car chauffeur-driven, every car maintained to the same
               standard.
             </p>
           </div>
@@ -354,8 +354,9 @@ export default function AboutPage() {
             const p = paint(i);
             const photo = brandPhotos[m.brand];
             return (
-              <div
+              <Link
                 key={m.brand}
+                href={`/cars/${slugify(m.brand)}`}
                 className="hover-glow reveal group relative flex flex-col items-center overflow-hidden rounded-3xl border border-zinc-200/70 bg-white p-6 shadow-premium"
               >
                 <div className="relative flex h-16 w-full items-center justify-center overflow-hidden">
@@ -374,7 +375,7 @@ export default function AboutPage() {
                 <span className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-400 transition-colors group-hover:text-primary">
                   {m.tag}
                 </span>
-              </div>
+              </Link>
             );
           })}
         </div>

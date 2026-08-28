@@ -54,7 +54,7 @@ const timeOptions = Array.from({ length: 24 }, (_, hour24) => {
 /* ------------------------------------------------------------------ */
 
 const inputBase =
-  "w-full rounded-xl border border-zinc-200 bg-white py-3 pl-11 pr-4 text-sm text-[#132238] outline-none transition-colors placeholder:text-zinc-400 focus:border-primary";
+  "w-full rounded-xl border border-zinc-200 bg-white py-2.5 pl-11 pr-4 text-sm text-[#132238] outline-none transition-colors placeholder:text-zinc-400 focus:border-primary sm:py-3";
 
 function Field({
   label,
@@ -74,7 +74,7 @@ function Field({
       <label className="text-xs font-semibold uppercase tracking-[0.14em] text-zinc-400">
         {label}
       </label>
-      <div className="relative mt-2">
+      <div className="relative mt-1.5 sm:mt-2">
         <span
           className={`pointer-events-none absolute left-3.5 text-zinc-400 ${
             iconAlign === "top" ? "top-3.5" : "top-1/2 -translate-y-1/2"
@@ -196,25 +196,25 @@ export default function BookingModal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`relative my-8 w-full max-w-xl overflow-hidden rounded-[2rem] border border-zinc-200/70 bg-white shadow-premium ${
+        className={`relative flex my-8 max-h-[calc(100vh-4rem)] w-full max-w-xl flex-col overflow-hidden rounded-[2rem] border border-zinc-200/70 bg-white shadow-premium sm:max-h-none ${
           closing ? "animate-modal-panel-out" : "animate-modal-panel-in"
         }`}
       >
         {/* top accent */}
-        <span className="absolute inset-x-0 top-0 h-1.5 bg-linear-to-r from-primary/40 via-primary to-primary/40" />
+        <span className="absolute inset-x-0 top-0 z-10 h-1.5 bg-linear-to-r from-primary/40 via-primary to-primary/40" />
 
         <button
           type="button"
           onClick={handleClose}
           aria-label="Close"
-          className="absolute right-5 top-6 flex h-9 w-9 items-center justify-center rounded-full text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-[#132238]"
+          className="absolute right-5 top-6 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white text-zinc-400 shadow-sm transition-colors hover:bg-zinc-100 hover:text-[#132238]"
         >
           <X className="h-5 w-5" />
         </button>
 
-        <div className="px-7 pb-8 pt-9 sm:px-9 sm:pb-9">
+        <div className="overflow-y-auto px-5 pb-5 pt-8 sm:px-9 sm:pb-9 sm:pt-9">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary sm:h-10 sm:w-10">
               <Car className="h-5 w-5" strokeWidth={1.9} />
             </span>
             <div className="min-w-0">
@@ -224,12 +224,12 @@ export default function BookingModal({
               <h2 className="truncate text-lg font-bold text-[#132238]">{car}</h2>
             </div>
           </div>
-          <p className="mt-4 text-sm leading-relaxed text-zinc-500">
+          <p className="mt-2 text-sm leading-relaxed text-zinc-500 sm:mt-4">
             Fill in your trip details, we&apos;ll confirm availability on
             WhatsApp within minutes.
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <form onSubmit={handleSubmit} className="mt-4 grid grid-cols-1 gap-3 sm:mt-7 sm:grid-cols-2 sm:gap-5">
             <Field label="Your name" icon={<User {...iconProps} />}>
               <input
                 required

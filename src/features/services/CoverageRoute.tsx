@@ -63,15 +63,28 @@ export default function CoverageRoute({ stops }: { stops: CoverageStop[] }) {
     return () => ctx.revert();
   }, [stops.length]);
 
+  // Pin size grows with each stop (bigger reach = bigger ring cluster). The
+  // desktop connector line stays fixed, so every pin reserves a box matching
+  // the largest stop's footprint and centers within it — keeping every pin's
+  // visual center locked to the line regardless of its own ring count.
+  const maxRingCount = stops.length;
+  const maxCoreSize = 32 + (stops.length - 1) * 6;
+  const maxBoxSize = maxCoreSize + maxRingCount * 18;
+  const pinCenterY = maxBoxSize / 2;
+
   return (
     <div ref={rootRef} className="relative mt-24 sm:mt-28">
       {/* connecting route (desktop) */}
-      <div className="pointer-events-none absolute inset-x-[18%] top-4 hidden h-px overflow-hidden sm:block">
+      <div
+        className="pointer-events-none absolute inset-x-[18%] hidden h-px overflow-hidden sm:block"
+        style={{ top: pinCenterY }}
+      >
         <div className="h-full w-full border-t-2 border-dashed border-zinc-200" />
       </div>
       <div
         ref={lineRef}
-        className="pointer-events-none absolute inset-x-[18%] top-4 hidden h-px origin-left bg-linear-to-r from-primary/70 via-primary to-primary/70 sm:block"
+        className="pointer-events-none absolute inset-x-[18%] hidden h-px origin-left bg-linear-to-r from-primary/70 via-primary to-primary/70 sm:block"
+        style={{ top: pinCenterY }}
       />
 
       {/* connecting route (mobile, vertical) */}
@@ -94,11 +107,15 @@ export default function CoverageRoute({ stops }: { stops: CoverageStop[] }) {
                 Fixed-width outer slot keeps the pin's visual center locked to
                 the connecting line on mobile even as the rings grow. */}
             <div
-              className="flex shrink-0 items-center justify-center sm:contents"
-              style={{ width: 32, height: boxSize }}
+              className="flex shrink-0 items-center justify-center sm:mb-7 sm:h-(--pin-max) sm:w-(--pin-max)"
+              style={{
+                width: 32,
+                height: boxSize,
+                ["--pin-max" as string]: `${maxBoxSize}px`,
+              }}
             >
               <span
-                className="relative z-10 flex items-center justify-center sm:mb-7"
+                className="relative z-10 flex items-center justify-center"
                 style={{ height: boxSize, width: boxSize }}
               >
                 {Array.from({ length: ringCount }).map((_, r) => (
