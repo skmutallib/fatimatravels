@@ -424,7 +424,7 @@ export default function CarsPage() {
           subtitle="Comfortable, economical rides with a professional chauffeur."
         />
         <div
-          className="scrollbar-none -mx-6 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-10 pt-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
+          className="scrollbar-none -mx-6 mt-12 flex snap-x snap-proximity scroll-smooth gap-4 overflow-x-auto overscroll-x-contain px-6 pb-10 pt-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
           style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
         >
           {sedans.map((name, i) => (
@@ -441,7 +441,7 @@ export default function CarsPage() {
           subtitle="Extra space and command for families and longer journeys."
         />
         <div
-          className="scrollbar-none -mx-6 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-10 pt-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
+          className="scrollbar-none -mx-6 mt-12 flex snap-x snap-proximity scroll-smooth gap-4 overflow-x-auto overscroll-x-contain px-6 pb-10 pt-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:py-0 lg:grid-cols-3"
           style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
         >
           {suvs.map((name, i) => (
@@ -524,11 +524,11 @@ export default function CarsPage() {
                 onClick={() => setSelectedCar(u.brand)}
                 className="hover-glow hover-glow-gold group relative flex flex-col overflow-hidden rounded-3xl border border-[#e9c877]/25 bg-white/[0.04] text-left backdrop-blur-sm sm:flex-row sm:items-center sm:gap-7 sm:p-7"
               >
-                <div className="relative flex h-44 w-full shrink-0 items-center justify-center overflow-hidden bg-white/5 ring-1 ring-white/10 sm:h-20 sm:w-32 sm:rounded-2xl">
+                <div className="relative flex h-32 w-full shrink-0 items-center justify-center overflow-hidden bg-white/5 ring-1 ring-white/10 sm:h-20 sm:w-32 sm:rounded-2xl">
                   <span className="pointer-events-none absolute h-28 w-28 rounded-full bg-[#e9c877]/25 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="relative flex h-full w-full items-center justify-center transition-transform duration-500 ease-out group-hover:scale-110 sm:h-14 sm:w-24">
                     {photo ? (
-                      <Image src={photo} alt={u.brand} fill sizes="200px" className="scale-125 object-contain sm:scale-150" />
+                      <Image src={photo} alt={u.brand} fill sizes="200px" className="object-contain sm:scale-150" />
                     ) : (
                       <VehicleArt variant="sedan" color="#e4e6ea" roof="#c3c7d1" />
                     )}

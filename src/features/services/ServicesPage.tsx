@@ -443,19 +443,19 @@ export default function ServicesPage() {
           <p className="relative mx-auto mt-4 max-w-xl text-lg text-white/60">
             We&apos;ll confirm in minutes, 24 hours a day. No hidden fees, ever.
           </p>
-          <div className="relative mx-auto mt-9 flex items-center justify-center gap-2 sm:gap-4">
+          <div className="relative mx-auto mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <a
               href={book("a trip")}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl bg-primary px-3 py-3.5 text-[13px] font-semibold text-white shadow-[0_16px_40px_-16px_rgba(11,180,181,1)] transition-transform duration-300 hover:-translate-y-0.5 sm:flex-initial sm:gap-2 sm:px-8 sm:py-4 sm:text-sm"
+              className="group flex w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl bg-primary px-3 py-3.5 text-[13px] font-semibold text-white shadow-[0_16px_40px_-16px_rgba(11,180,181,1)] transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto sm:gap-2 sm:px-8 sm:py-4 sm:text-sm"
             >
               Chat on WhatsApp
               <ArrowRight />
             </a>
             <Link
               href="/contact"
-              className="flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl border border-white/20 bg-white/5 px-3 py-3.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10 sm:flex-initial sm:gap-2 sm:px-8 sm:py-4 sm:text-sm"
+              className="flex w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl border border-white/20 bg-white/5 px-3 py-3.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/40 hover:bg-white/10 sm:w-auto sm:gap-2 sm:px-8 sm:py-4 sm:text-sm"
             >
               Get a quote
             </Link>

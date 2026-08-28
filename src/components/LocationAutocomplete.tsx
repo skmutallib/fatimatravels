@@ -18,6 +18,7 @@ export default function LocationAutocomplete({
   ...inputProps
 }: LocationAutocompleteProps) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [source, setSource] = useState<"google" | "osm">("osm");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [highlighted, setHighlighted] = useState(-1);
@@ -35,6 +36,7 @@ export default function LocationAutocomplete({
         const data = await res.json();
         if (requestId === requestIdRef.current) {
           setSuggestions(data.results ?? []);
+          setSource(data.source === "google" ? "google" : "osm");
         }
       } catch {
         if (requestId === requestIdRef.current) setSuggestions([]);
@@ -110,22 +112,29 @@ export default function LocationAutocomplete({
           {loading && suggestions.length === 0 ? (
             <li className="px-4 py-2.5 text-sm text-zinc-400">Searching…</li>
           ) : (
-            suggestions.map((s, i) => (
-              <li key={s.id}>
-                <button
-                  type="button"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => select(s.label)}
-                  className={`block w-full truncate px-4 py-2.5 text-left text-sm ${
-                    i === highlighted
-                      ? "bg-primary/10 text-primary"
-                      : "text-zinc-700 hover:bg-zinc-50"
-                  }`}
-                >
-                  {s.label}
-                </button>
-              </li>
-            ))
+            <>
+              {suggestions.map((s, i) => (
+                <li key={s.id}>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => select(s.label)}
+                    className={`block w-full truncate px-4 py-2.5 text-left text-sm ${
+                      i === highlighted
+                        ? "bg-primary/10 text-primary"
+                        : "text-zinc-700 hover:bg-zinc-50"
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                </li>
+              ))}
+              {suggestions.length > 0 && (
+                <li className="border-t border-zinc-100 px-4 pt-1.5 pb-0.5 text-[11px] text-zinc-400">
+                  {source === "google" ? "Powered by Google" : "Search by OpenStreetMap"}
+                </li>
+              )}
+            </>
           )}
         </ul>
       )}

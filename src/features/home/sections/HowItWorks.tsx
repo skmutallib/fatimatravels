@@ -47,8 +47,32 @@ export default function HowItWorks() {
         </p>
       </div>
 
-      {/* Steps */}
-      <div className="relative mt-14 grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-0">
+      {/* Steps — compact list on mobile */}
+      <div className="mt-10 flex flex-col gap-3 sm:hidden">
+        {steps.map((step) => {
+          const Icon = step.icon;
+          return (
+            <div
+              key={step.num}
+              className="reveal flex items-center gap-4 rounded-2xl border border-zinc-100 bg-white p-4 shadow-premium"
+            >
+              <span className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e2f5f5] text-primary">
+                <Icon className="h-5 w-5" strokeWidth={1.75} />
+                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white ring-2 ring-white">
+                  {step.num}
+                </span>
+              </span>
+              <div>
+                <h3 className="text-sm font-bold text-[#132238]">{step.title}</h3>
+                <p className="mt-0.5 text-xs leading-snug text-zinc-500">{step.desc}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Steps — full layout from sm up */}
+      <div className="relative mt-14 hidden sm:grid sm:grid-cols-2 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-0">
         {/* curved road connector behind the badges */}
         <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-9 hidden h-24 -translate-y-1/2 lg:block">
           <svg viewBox="0 0 1000 150" preserveAspectRatio="none" className="h-full w-full overflow-visible">
@@ -84,57 +108,26 @@ export default function HowItWorks() {
           </svg>
         </div>
 
-        {steps.map((step, idx) => {
+        {steps.map((step) => {
           const Icon = step.icon;
           return (
-            <div key={step.num} className="contents">
-              {/* mobile-only vertical road segment connecting this step to the previous one */}
-              {idx > 0 && (
-                <div className="flex justify-center sm:hidden" aria-hidden>
-                  <svg width="20" height="40" viewBox="0 0 20 40" className="overflow-visible">
-                    <line
-                      x1="10"
-                      y1="0"
-                      x2="10"
-                      y2="40"
-                      stroke="#8a93a3"
-                      strokeWidth="10"
-                      strokeLinecap="round"
-                      vectorEffect="non-scaling-stroke"
-                    />
-                    <line
-                      x1="10"
-                      y1="0"
-                      x2="10"
-                      y2="40"
-                      stroke="#ffffff"
-                      strokeWidth="3"
-                      strokeDasharray="8 6"
-                      strokeLinecap="butt"
-                      vectorEffect="non-scaling-stroke"
-                    />
-                  </svg>
-                </div>
-              )}
+            <div key={step.num} className="reveal flex flex-col items-center px-4 text-center">
+              {/* number + icon */}
+              <div className="flex items-start gap-3">
+                <span className="relative z-10 -mt-1 flex h-9 min-w-9 items-center justify-center rounded-full bg-white px-2 text-base font-bold text-primary shadow-[0_4px_10px_-2px_rgba(15,23,42,0.25)] ring-2 ring-primary/15">
+                  {step.num}
+                </span>
+                <span className="relative z-10 flex h-18 w-18 shrink-0 items-center justify-center rounded-full bg-[#e2f5f5] text-primary">
+                  <Icon className="h-8 w-8" strokeWidth={1.75} />
+                </span>
+              </div>
 
-              <div className="reveal flex flex-col items-center px-4 text-center">
-                {/* number + icon */}
-                <div className="flex items-start gap-3">
-                  <span className="relative z-10 -mt-1 flex h-9 min-w-9 items-center justify-center rounded-full bg-white px-2 text-base font-bold text-primary shadow-[0_4px_10px_-2px_rgba(15,23,42,0.25)] ring-2 ring-primary/15">
-                    {step.num}
-                  </span>
-                  <span className="relative z-10 flex h-18 w-18 shrink-0 items-center justify-center rounded-full bg-[#e2f5f5] text-primary">
-                    <Icon className="h-8 w-8" strokeWidth={1.75} />
-                  </span>
-                </div>
-
-                {/* text */}
-                <div className="mt-5 max-w-[220px]">
-                  <h3 className="text-lg font-bold text-[#132238]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 leading-relaxed text-zinc-500">{step.desc}</p>
-                </div>
+              {/* text */}
+              <div className="mt-5 max-w-[220px]">
+                <h3 className="text-lg font-bold text-[#132238]">
+                  {step.title}
+                </h3>
+                <p className="mt-2 leading-relaxed text-zinc-500">{step.desc}</p>
               </div>
             </div>
           );

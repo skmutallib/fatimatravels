@@ -27,12 +27,12 @@ const telHref = `tel:${siteConfig.phone.replace(/\s+/g, "")}`;
 const whatsappHref = `https://wa.me/${wa}`;
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     const text = `Hi Fatima Travels, please add me to your updates list.${
-      email ? ` Email: ${email}` : ""
+      phone ? ` WhatsApp Number: ${phone}` : ""
     }`;
     window.open(
       `https://wa.me/${wa}?text=${encodeURIComponent(text)}`,
@@ -60,11 +60,11 @@ export default function Footer() {
             </p>
             <form onSubmit={handleSubscribe} className="mt-4 flex w-full max-w-sm items-center gap-2">
               <input
-                type="email"
+                type="tel"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Enter your WhatsApp number"
                 className="w-full min-w-0 rounded-lg border border-white/20 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder:text-white/50 focus:border-white focus:outline-none"
               />
               <button
@@ -76,7 +76,7 @@ export default function Footer() {
               </button>
             </form>
             <p className="mt-2.5 max-w-sm text-xs leading-relaxed text-white/50">
-              We&apos;ll reach out on WhatsApp using the details you share.
+              We&apos;ll reach out on WhatsApp using the number you share.
             </p>
           </div>
 
@@ -158,9 +158,9 @@ export default function Footer() {
             href="https://www.skmutallib.work"
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[#f5d485]/40 bg-[#f5d485]/10 px-3.5 py-1.5 font-semibold text-[#f5d485] transition-colors hover:bg-[#f5d485]/20 hover:text-white"
           >
-            Developed by skmutallib
+            Design and developed by skmutallib
           </a>
         </div>
       </div>
