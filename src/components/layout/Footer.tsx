@@ -20,6 +20,7 @@ const fleet = [
   { label: "Sedans", href: "/cars#sedans" },
   { label: "SUVs", href: "/cars#suvs" },
   { label: "Luxury Collection", href: "/cars#luxury" },
+  { label: "Buses", href: "/cars#buses" },
 ];
 
 const wa = siteConfig.whatsapp.replace(/\D/g, "");

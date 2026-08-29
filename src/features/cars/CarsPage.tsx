@@ -18,7 +18,7 @@ import BookingModal from "@/features/cars/BookingModal";
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
-const sedans = ["Swift Dzire", "Toyota Etios", "Maruti Suzuki Brezza", "Maruti Suzuki Baleno"];
+const sedans = ["Swift Dzire", "Toyota Etios", "Maruti Suzuki Brezza"];
 
 const suvs = [
   "Innova",
@@ -31,7 +31,6 @@ const suvs = [
 // Real photos for specific models — everything else falls back to the
 // illustrated VehicleArt.
 const carPhotos: Record<string, string> = {
-  "Maruti Suzuki Baleno": "/baleno.png",
   "Swift Dzire": "/swift-dzire.png",
   "Toyota Etios": "/toyota-etios.png",
   "Maruti Suzuki Brezza": "/maruti-brezza.png",
@@ -323,9 +322,10 @@ export default function CarsPage() {
               className="reveal mt-7 max-w-xl text-lg leading-relaxed text-zinc-600"
               style={{ "--d": "160ms" } as CSSProperties}
             >
-              From economical sedans to Rolls-Royce flagships and 50-seat
-              coaches, a professionally maintained fleet with a driver at the
-              wheel, on your schedule.
+              From economical sedans to luxury Rolls-Royce vehicles and 10 to
+              50-seater buses, we offer a professionally maintained fleet
+              with experienced chauffeurs, available according to your
+              schedule and requirements.
             </p>
 
             <dl
@@ -571,7 +571,7 @@ export default function CarsPage() {
       </section>
 
       {/* ============================ BUSES ============================ */}
-      <section className="mx-auto w-[90vw] px-6 py-16 pb-28 sm:px-10 lg:px-16">
+      <section id="buses" className="mx-auto w-[90vw] scroll-mt-28 px-6 py-16 pb-28 sm:px-10 lg:px-16">
         <SectionHead
           eyebrow="Group travel"
           title="Buses & Coaches"

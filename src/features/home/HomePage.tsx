@@ -1,4 +1,5 @@
 import BookingForm from "@/features/home/sections/BookingForm";
+import BusesSection from "@/features/home/sections/BusesSection";
 import CtaContact from "@/features/home/sections/CtaContact";
 import FaqSection from "@/features/home/sections/FaqSection";
 import FleetSection from "@/features/home/sections/FleetSection";
@@ -16,6 +17,7 @@ export default function HomePage() {
       <BookingForm />
       <StatsSection />
       <FleetSection />
+      <BusesSection />
       <HowItWorks />
       <WhyChoose />
       <Testimonials />
