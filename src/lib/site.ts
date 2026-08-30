@@ -27,6 +27,12 @@ export const siteConfig = {
   address:
     "Pillar Number 143, Near Golden Palace Hotel, Attapur, Hyderabad, Telangana 500048",
   directionsUrl: "https://maps.app.goo.gl/4gvcmPgGTNLPT1v27",
+  social: {
+    facebook:
+      "https://www.facebook.com/people/Fatimatravel/61593803857679/?mibextid=wwXIfr&rdid=EbZLKuVBR9207oC8&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1DQGxwTiYG%2F%3Fmibextid%3DwwXIfr",
+    instagram:
+      "https://www.instagram.com/fatimatravel.in?igsi=aDlhdjFhenNtZGc2&utm_source=qr",
+  },
 } as const;
 
 export type NavItem = {

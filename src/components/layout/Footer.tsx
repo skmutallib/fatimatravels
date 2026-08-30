@@ -27,6 +27,29 @@ const wa = siteConfig.whatsapp.replace(/\D/g, "");
 const telHref = `tel:${siteConfig.phone.replace(/\s+/g, "")}`;
 const whatsappHref = `https://wa.me/${wa}`;
 
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: siteConfig.social.facebook,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+        <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.9.25-1.5 1.55-1.5H16.5V4.3C16.2 4.26 15.2 4.17 14 4.17c-2.4 0-4 1.46-4 4.15V10.5H7.5v3H10V21h3.5z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Instagram",
+    href: siteConfig.social.instagram,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+        <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
+];
+
 export default function Footer() {
   const [phone, setPhone] = useState("");
 
@@ -79,6 +102,20 @@ export default function Footer() {
             <p className="mt-2.5 max-w-sm text-xs leading-relaxed text-white/50">
               We&apos;ll reach out on WhatsApp using the number you share.
             </p>
+            <div className="mt-5 flex items-center gap-3">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white hover:text-white"
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Company */}
