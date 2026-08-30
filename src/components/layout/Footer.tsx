@@ -1,9 +1,6 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, MessageCircle, Phone, Send } from "lucide-react";
+import { MapPin, MessageCircle, Phone } from "lucide-react";
 
 import { siteConfig } from "@/lib/site";
 
@@ -51,20 +48,6 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const [phone, setPhone] = useState("");
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    const text = `Hi Fatima Travels, please add me to your updates list.${
-      phone ? ` WhatsApp Number: ${phone}` : ""
-    }`;
-    window.open(
-      `https://wa.me/${wa}?text=${encodeURIComponent(text)}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
-  };
-
   return (
     <footer className="bg-primary text-white">
       <div className="mx-auto w-[90vw] px-6 py-14 sm:px-10 lg:px-16">
@@ -82,26 +65,6 @@ export default function Footer() {
               Join our updates list to stay up to date on offers and new
               routes.
             </p>
-            <form onSubmit={handleSubscribe} className="mt-4 flex w-full max-w-sm items-center gap-2">
-              <input
-                type="tel"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Enter your WhatsApp number"
-                className="w-full min-w-0 rounded-lg border border-white/20 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder:text-white/50 focus:border-white focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-white/90"
-              >
-                Subscribe
-                <Send className="h-3.5 w-3.5" />
-              </button>
-            </form>
-            <p className="mt-2.5 max-w-sm text-xs leading-relaxed text-white/50">
-              We&apos;ll reach out on WhatsApp using the number you share.
-            </p>
             <div className="mt-5 flex items-center gap-3">
               {socialLinks.map((s) => (
                 <a
@@ -110,7 +73,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white hover:text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-primary transition-colors hover:bg-white/90"
                 >
                   {s.icon}
                 </a>
