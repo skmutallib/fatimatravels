@@ -196,7 +196,7 @@ export default function Footer() {
             href="https://www.skmutallib.work"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-[#f5d485]/40 bg-[#f5d485]/10 px-3.5 py-1.5 font-semibold text-[#f5d485] transition-colors hover:bg-[#f5d485]/20 hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-full border border-white bg-white px-3.5 py-1.5 font-bold text-black transition-colors hover:bg-white/90"
           >
             Design and developed by skmutallib
           </a>
