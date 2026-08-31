@@ -9,7 +9,7 @@
  */
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "https://www.fatimatravels.in";
+  "https://www.fatimatravel.in";
 
 export const siteConfig = {
   name: "Fatima Tours and Travels",
